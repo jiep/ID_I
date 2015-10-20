@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper,twoside,openright,final]{article}
+\documentclass[12pt,a4paper,openright,final]{article}
 \usepackage{fontspec}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -7,7 +7,7 @@
 \usepackage{graphicx}
 \usepackage[hidelinks,unicode=true]{hyperref}
 \usepackage[spanish,es-nodecimaldot,es-lcroman,es-tabla,es-noshorthands]{babel}
-\usepackage[left=2cm,right=2cm, bottom=4cm, top=2cm]{geometry}
+\usepackage[left=3cm,right=2cm, bottom=4cm]{geometry}
 \usepackage{natbib}
 \usepackage{microtype}
 \usepackage{ifdraft}
@@ -42,12 +42,18 @@
 
 \maketitle
 
+Un problema típico de toma de decisiones es la ruta ``óptima'' para llegar al trabajo. Es decir, partiendo de un lugar fijo de partida, queremos obtener la forma más rápida para de llegar posible a nuestro trabajo. Supondremos que nuestro trabajo se encuentra en la ciudad de Madrid, y hasta él tenemos una distancia de 50 kilómetros (por carretera). Los medios de transporte disponibles hasta llegar al trabajo son el coche (opción por defecto), metro, autobús y Cercanías. Podemos usar un medio de transporte o combinaciones de ellos. Preferimos los medios terrestres (coche y autobús) sobre los medios subterráneos (metro y Cercanías). Además de llegar lo antes posible, también queremos tener la máxima comodidad posible, que sea lo más barato posible y que contamine, también, lo menos posible. Si se elige el coche, se pretende estar detenido lo mínimo posible por retenciones. De igual forma, si se elige una combinación de los servicios de transporte se quiere minimizar el número de transbordos.\\
+
+La solución de este problema puede variar cada día, incluso a cada hora. Supongamos que la opción elegida (obtenida por intuición) para llegar todos los días al trabajo es el coche.\\
+
+Los factores de incertidumbre, los objetivos conflictivos, la influencia del tiempo, los decisores y los grupos afectados para este problema son los siguientes:
+
 \begin{itemize}
 
 \item \textbf{Factores de incertidumbre}
 
 \begin{itemize}
-\item Condiciones meteorológicas, huelgas en los servicios de transporte, demanda en los servicios de transporte, retenciones en carretera, caídas de electricidad, fluctuaciones del precio del combustible
+\item Condiciones meteorológicas (lluvia, nieve, hielo, granizo, sol, ...), huelgas en los servicios de transporte, demanda en los servicios de transporte, retenciones en carretera, caídas de electricidad en los servicios de transporte, fluctuaciones del precio del combustible
 \end{itemize}
 
 \item \textbf{Objetivos conflictivos}
@@ -59,19 +65,19 @@
 \item \textbf{Influencia del tiempo}
 
 \begin{itemize}
-\item Condiciones meteorológicas
+\item Condiciones meteorológicas, precio del combustible, precio de los servicios de transporte (tanto a corto como a largo plazo), día y hora en la que nos encontremos (por ejemplo, no es lo mismo ir a trabajar un domingo que habrá pocos coches por la carretera, a un lunes por la mañana que seguramente habrá retenciones), apertura de nuevas carreteras o nuevos servicios en los medios de transporte.
 \end{itemize}
 
 \item \textbf{Decisores}
 
 \begin{itemize}
-\item Nosotros, responsables de los servicios de transporte, responsables de las compañías petrolíferas
+\item Nosotros mismos, responsables de los servicios de transporte, responsables de las compañías petrolíferas
 \end{itemize}
 
 \item \textbf{Grupos afectados}
 
 \begin{itemize}
-\item Nosotros, usuarios de los servicios de transporte, usuarios de coches,  
+\item Nosotros mismos, usuarios de los servicios de transporte, usuarios de coches, ciudadanos de Madrid (por la contaminación)
 \end{itemize}
 
 \end{itemize}
