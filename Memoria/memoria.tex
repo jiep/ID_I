@@ -42,9 +42,9 @@
 
 \maketitle
 
-Un problema típico de toma de decisiones es la ruta ``óptima'' para llegar al trabajo. Es decir, partiendo de un lugar fijo de partida, queremos obtener la forma más rápida para de llegar posible a nuestro trabajo. Supondremos que nuestro trabajo se encuentra en la ciudad de Madrid, y hasta él tenemos una distancia de 50 kilómetros (por carretera). Los medios de transporte disponibles hasta llegar al trabajo son el coche (opción por defecto), metro, autobús y Cercanías. Podemos usar un medio de transporte o combinaciones de ellos. Preferimos los medios terrestres (coche y autobús) sobre los medios subterráneos (metro y Cercanías). Además de llegar lo antes posible, también queremos tener la máxima comodidad posible, que sea lo más barato posible y que contamine, también, lo menos posible. Si se elige el coche, se pretende estar detenido lo mínimo posible por retenciones. De igual forma, si se elige una combinación de los servicios de transporte se quiere minimizar el número de transbordos.\\
+El problema elegido de toma de decisiones es la ruta ``óptima'' para llegar al trabajo. Es decir, partiendo de un lugar fijo de partida --nuestra casa--, queremos obtener la forma más rápida posible de llegar a nuestro trabajo. Supondremos que nuestro trabajo se encuentra en la ciudad de Madrid, y hasta él tenemos una distancia de 30 kilómetros (por carretera). Los medios de transporte disponibles hasta llegar al trabajo son el coche (opción por defecto), metro, autobús y Cercanías Renfe. Podemos usar un medio de transporte o combinaciones de ellos. Preferimos los medios terrestres (coche y autobús) sobre los medios subterráneos (metro y Cercanías). Además de llegar lo antes posible, también queremos tener la máxima comodidad, que sea lo más barato y que contamine lo menos posible. Si se elige el coche, se pretende estar detenido lo mínimo por retenciones. De igual forma, si se elige los servicios de transporte se quiere minimizar el número de transbordos.\\
 
-La solución de este problema puede variar cada día, incluso a cada hora. Supongamos que la opción elegida para llegar todos los días al trabajo es el coche, obtenida mediante intuición considerando que con éste se minimiza el tiempo de llegada al trabajo.\\
+La solución de este problema puede variar cada día, incluso a cada hora. Supongamos que la opción elegida para llegar todos los días al trabajo es el coche, obtenida mediante intuición considerando que con éste se minimiza el tiempo de llegada al trabajo y se maximiza la comodidad.\\
 
 Los factores de incertidumbre, los objetivos conflictivos, la influencia del tiempo, los decisores y los grupos afectados para este problema son los siguientes:
 
@@ -59,13 +59,13 @@ Los factores de incertidumbre, los objetivos conflictivos, la influencia del tie
 \item \textbf{Objetivos conflictivos}
 
 \begin{itemize}
-\item Minimizar el tiempo, minimizar el coste, maximizar la comodidad, preferencia de medios terrestres sobre medios subterráneos, minimizar el número de transbordos, minimizar las emisiones de CO\textsubscript{2}
+\item Minimizar el tiempo de llegada, minimizar el coste, maximizar la comodidad, preferencia de medios terrestres sobre medios subterráneos, minimizar el número de transbordos, minimizar las emisiones de CO\textsubscript{2}
 \end{itemize}
 
 \item \textbf{Influencia del tiempo}
 
 \begin{itemize}
-\item Condiciones meteorológicas, precio del combustible, precio de los servicios de transporte (tanto a corto como a largo plazo), día y hora en la que nos encontremos (por ejemplo, no es lo mismo ir a trabajar un domingo que habrá pocos coches por la carretera, a un lunes por la mañana que seguramente habrá retenciones), apertura de nuevas carreteras o nuevos servicios en los medios de transporte.
+\item Condiciones meteorológicas, precio del combustible, precio de los servicios de transporte (tanto a corto como a largo plazo), día y hora en la que nos encontremos (por ejemplo, no es lo mismo ir a trabajar un domingo que habrá menos tráfico por la carretera, que un lunes por la mañana que seguramente habrá retenciones), apertura de nuevas carreteras o nuevos servicios en los medios de transporte.
 \end{itemize}
 
 \item \textbf{Decisores}
