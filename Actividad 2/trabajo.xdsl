@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Network1" numsamples="1000" discsamples="10000">
+	<nodes>
+		<cpt id="Predicci_n_meteorol_gica">
+			<state id="Prediccion_Lluvia" />
+			<state id="Prediccion_Nieve" />
+			<state id="Prediccion_Niebla" />
+			<state id="Prediccion_Despejado" />
+			<probabilities>0.15 0.05 0.1 0.7</probabilities>
+		</cpt>
+		<cpt id="Condiciones_meteorol_gicas">
+			<state id="Condicion_Lluvia" />
+			<state id="Condicion_Nieve" />
+			<state id="Condicion_Niebla" />
+			<state id="Condicion_Despejado" />
+			<parents>Predicci_n_meteorol_gica</parents>
+			<probabilities>0.8 0.01 0.1 0.08999999999999994 0.3 0.6 0.05 0.05 0.3 0.2 0.4 0.09999999999999992 0.1 0.01 0.01 0.88</probabilities>
+		</cpt>
+		<cpt id="Nivel_de_contaminaci_n">
+			<state id="Contaminacion_Baja" />
+			<state id="Contaminacion_Alta" />
+			<parents>Condiciones_meteorol_gicas</parents>
+			<probabilities>0.7 0.3 0.5 0.5 0.4 0.6 0.3 0.7</probabilities>
+		</cpt>
+		<cpt id="Precio_combustible">
+			<state id="Precio_Combustible_Alto" />
+			<state id="Precio_Combustible_Bajo" />
+			<probabilities>0.7 0.3</probabilities>
+		</cpt>
+		<cpt id="Precio_servicio_de_transporte">
+			<state id="Precio_Tranporte_Alto" />
+			<state id="Precio_Transporte_Bajo" />
+			<parents>Precio_combustible</parents>
+			<probabilities>0.75 0.25 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Ca_das_de_electricidad">
+			<state id="Caida" />
+			<state id="No_caida" />
+			<probabilities>0.001 0.999</probabilities>
+		</cpt>
+		<decision id="Medio_de_transporte">
+			<state id="Eleccion_Coche" />
+			<state id="Eleccion_Metro" />
+			<state id="Eleccion_Cercanias" />
+			<state id="Eleccion_Autobus" />
+			<parents>Nivel_de_contaminaci_n Condiciones_meteorol_gicas Precio_combustible Precio_servicio_de_transporte Ca_das_de_electricidad Predicci_n_meteorol_gica</parents>
+		</decision>
+		<utility id="Tiempo_de_llegada">
+			<parents>Medio_de_transporte</parents>
+			<utilities>0.4 0.3 0.2 0.1</utilities>
+		</utility>
+		<utility id="Coste">
+			<parents>Medio_de_transporte</parents>
+			<utilities>0 0 0 0</utilities>
+		</utility>
+		<utility id="Comodidad">
+			<parents>Medio_de_transporte</parents>
+			<utilities>0 0 0 0</utilities>
+		</utility>
+		<utility id="N_mero_de__transbordos">
+			<parents>Medio_de_transporte</parents>
+			<utilities>0 0 0 0</utilities>
+		</utility>
+		<utility id="Emisiones_de_CO2">
+			<parents>Medio_de_transporte</parents>
+			<utilities>20 20 20 20</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 2.0.5590.0" name="Network1" faultnameformat="nodestate">
+			<node id="Medio_de_transporte">
+				<name>Medio de transporte</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>414 194 522 220</position>
+			</node>
+			<node id="Nivel_de_contaminaci_n">
+				<name>Nivel de contaminación</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>105 22 201 82</position>
+			</node>
+			<node id="Condiciones_meteorol_gicas">
+				<name>Condiciones meteorológicas</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>104 109 199 168</position>
+			</node>
+			<node id="Precio_combustible">
+				<name>Precio combustible</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>118 218 219 281</position>
+			</node>
+			<node id="Precio_servicio_de_transporte">
+				<name>Precio servicio de transporte</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>127 331 223 391</position>
+			</node>
+			<node id="Ca_das_de_electricidad">
+				<name>Caídas de electricidad</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>415 356 495 406</position>
+			</node>
+			<node id="Tiempo_de_llegada">
+				<name>Tiempo de llegada</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>692 52 798 93</position>
+			</node>
+			<node id="Coste">
+				<name>Coste</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>743 149 791 181</position>
+			</node>
+			<node id="Comodidad">
+				<name>Comodidad</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>728 239 801 271</position>
+			</node>
+			<node id="N_mero_de__transbordos">
+				<name>Número de  transbordos</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>722 319 815 379</position>
+			</node>
+			<node id="Emisiones_de_CO2">
+				<name>Emisiones de CO2</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>717 421 815 509</position>
+			</node>
+			<node id="Predicci_n_meteorol_gica">
+				<name>Predicción meteorológica</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>390 22 480 78</position>
+				<barchart width="128" height="90" />
+			</node>
+		</genie>
+	</extensions>
+</smile>
