@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Network1" numsamples="1000" discsamples="10000">
+	<nodes>
+		<decision id="Contratar_Arnald_s">
+			<state id="Contratar" />
+			<state id="NoContratar" />
+		</decision>
+		<cpt id="Encuesta_NYT">
+			<state id="PartidoRepublicano" />
+			<state id="PartidoDemocrata" />
+			<probabilities>0.2 0.8</probabilities>
+		</cpt>
+		<cpt id="Recibir_autorizaci_n">
+			<state id="Recibir" />
+			<state id="NoRecibir" />
+			<parents>Encuesta_NYT</parents>
+			<probabilities>0.3 0.7 0.6 0.4</probabilities>
+		</cpt>
+		<cpt id="Resultado_del_informe">
+			<state id="Favorable" />
+			<state id="Desfavorable" />
+			<state id="NoHacer" />
+			<parents>Contratar_Arnald_s Recibir_autorizaci_n</parents>
+			<probabilities>0.95 0.05000000000000004 0 0.3 0.7 0 0 0 1 0 0 1</probabilities>
+		</cpt>
+		<decision id="Explotar__pozo">
+			<state id="Explotar" />
+			<state id="NoExplotar" />
+			<parents>Contratar_Arnald_s Resultado_del_informe Recibir_autorizaci_n</parents>
+		</decision>
+		<utility id="Beneficio">
+			<parents>Contratar_Arnald_s Recibir_autorizaci_n Explotar__pozo</parents>
+			<utilities>14.9 -0.1 -1.1 -0.1 15 -1 -1 0</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 2.0.5590.0" name="Network1" faultnameformat="nodestate">
+			<node id="Contratar_Arnald_s">
+				<name>Contratar Arnald&apos;s</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>43 87 175 113</position>
+				<barchart width="128" height="64" />
+			</node>
+			<node id="Explotar__pozo">
+				<name>Explotar  pozo</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>49 270 130 296</position>
+			</node>
+			<node id="Resultado_del_informe">
+				<name>Resultado del informe</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>286 107 381 161</position>
+				<barchart width="210" height="72" />
+			</node>
+			<node id="Recibir_autorizaci_n">
+				<name>Recibir autorización</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>473 130 576 192</position>
+				<barchart width="190" height="64" />
+			</node>
+			<node id="Encuesta_NYT">
+				<name>Encuesta NYT</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>678 115 758 165</position>
+				<barchart width="305" height="95" />
+			</node>
+			<node id="Beneficio">
+				<name>Beneficio</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>254 310 350 365</position>
+				<barchart width="128" height="64" />
+			</node>
+		</genie>
+	</extensions>
+</smile>
