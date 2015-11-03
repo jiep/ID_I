@@ -152,28 +152,28 @@
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>1212 218 1309 250</position>
+				<position>1169 220 1266 252</position>
 			</node>
 			<node id="Econ_micos">
 				<name>Económicos</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>1022 75 1100 107</position>
+				<position>1030 75 1108 107</position>
 			</node>
 			<node id="Confort">
 				<name>Confort</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>1069 215 1133 247</position>
+				<position>1059 215 1123 247</position>
 			</node>
 			<node id="Sociales">
 				<name>Sociales</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>1037 318 1105 362</position>
+				<position>1049 341 1117 385</position>
 			</node>
 			<node id="Tipo_de_transporte">
 				<name>Tipo de transporte</name>
