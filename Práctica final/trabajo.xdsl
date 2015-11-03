@@ -33,38 +33,74 @@
 			<parents>Precio_combustible</parents>
 			<probabilities>0.75 0.25 0.5 0.5</probabilities>
 		</cpt>
-		<cpt id="Ca_das_de_electricidad">
-			<state id="Caida" />
-			<state id="No_caida" />
-			<probabilities>0.001 0.999</probabilities>
-		</cpt>
 		<decision id="Medio_de_transporte">
 			<state id="Eleccion_Coche" />
 			<state id="Eleccion_Metro" />
 			<state id="Eleccion_Cercanias" />
 			<state id="Eleccion_Autobus" />
-			<parents>Nivel_de_contaminaci_n Condiciones_meteorol_gicas Precio_combustible Precio_servicio_de_transporte Ca_das_de_electricidad Predicci_n_meteorol_gica</parents>
+			<parents>Nivel_de_contaminaci_n Condiciones_meteorol_gicas Precio_combustible Precio_servicio_de_transporte Predicci_n_meteorol_gica</parents>
 		</decision>
-		<utility id="Tiempo_de_llegada">
+		<deterministic id="Tipo_de_transporte_2">
+			<state id="Terrestre" />
+			<state id="Subterraneo" />
 			<parents>Medio_de_transporte</parents>
-			<utilities>0.4 0.3 0.2 0.1</utilities>
+			<resultingstates>Terrestre Subterraneo Subterraneo Terrestre</resultingstates>
+		</deterministic>
+		<utility id="Terrestre">
+			<parents>Tipo_de_transporte_2</parents>
+			<utilities>0.714 0.286</utilities>
+		</utility>
+		<utility id="Subterr_neo">
+			<parents>Tipo_de_transporte_2</parents>
+			<utilities>0.289 0.7110000000000001</utilities>
+		</utility>
+		<mau id="Tipo_de_transporte">
+			<parents>Terrestre Subterr_neo</parents>
+			<weights>0.714 0.286</weights>
+		</mau>
+		<utility id="Transbordos">
+			<parents>Medio_de_transporte</parents>
+			<utilities>1 0.8 0.75 0.8</utilities>
+		</utility>
+		<utility id="Tiempo_espera">
+			<parents>Medio_de_transporte</parents>
+			<utilities>1 0.6 0.7 0.6</utilities>
+		</utility>
+		<utility id="Personas_del_habit_culo">
+			<parents>Medio_de_transporte</parents>
+			<utilities>0.8 0.2 0.3 0.5</utilities>
+		</utility>
+		<mau id="Confort">
+			<parents>Personas_del_habit_culo Tiempo_espera Tipo_de_transporte Transbordos</parents>
+			<weights>0.138 0.276 0.345 0.241</weights>
+		</mau>
+		<utility id="Tiempo_llegada">
+			<parents>Condiciones_meteorol_gicas Medio_de_transporte</parents>
+			<utilities>0.1 1 0.25 0.5 0 1 0.9 0.1 0.1 0.8 0.75 0.3 1 0.7 0.6 0</utilities>
 		</utility>
 		<utility id="Coste">
-			<parents>Medio_de_transporte</parents>
-			<utilities>0 0 0 0</utilities>
+			<parents>Precio_servicio_de_transporte Precio_combustible Medio_de_transporte</parents>
+			<utilities>0.5 0.6 0.7 0.8 0.8 0.3 0.2 0.1 0.2 0.9 0.8 0.8 0.5 0.5 0.5 0.5</utilities>
 		</utility>
-		<utility id="Comodidad">
-			<parents>Medio_de_transporte</parents>
-			<utilities>0 0 0 0</utilities>
+		<mau id="Econ_micos">
+			<parents>Tiempo_llegada Coste</parents>
+			<weights>0.625 0.375</weights>
+		</mau>
+		<utility id="Contaminaci_n">
+			<parents>Nivel_de_contaminaci_n Medio_de_transporte</parents>
+			<utilities>0.9 0.7 0.7 0.8 0.3 0.8 0.6 0.9</utilities>
 		</utility>
-		<utility id="N_mero_de__transbordos">
-			<parents>Medio_de_transporte</parents>
-			<utilities>0 0 0 0</utilities>
+		<utility id="Ruidos">
+			<utilities>2.907</utilities>
 		</utility>
-		<utility id="Emisiones_de_CO2">
-			<parents>Medio_de_transporte</parents>
-			<utilities>20 20 20 20</utilities>
-		</utility>
+		<mau id="Sociales">
+			<parents>Contaminaci_n Ruidos</parents>
+			<weights>0.8 0.2</weights>
+		</mau>
+		<mau id="Elecci_n_transporte">
+			<parents>Confort Econ_micos Sociales</parents>
+			<weights>0.255 0.426 1</weights>
+		</mau>
 	</nodes>
 	<extensions>
 		<genie version="1.0" app="GeNIe 2.0.5590.0" name="Network1" faultnameformat="nodestate">
@@ -73,85 +109,148 @@
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>414 194 522 220</position>
+				<position>164 167 281 208</position>
 			</node>
 			<node id="Nivel_de_contaminaci_n">
 				<name>Nivel de contaminación</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>105 22 201 82</position>
+				<position>67 486 164 554</position>
 			</node>
 			<node id="Condiciones_meteorol_gicas">
 				<name>Condiciones meteorológicas</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>104 109 199 168</position>
+				<position>9 13 104 72</position>
 			</node>
 			<node id="Precio_combustible">
 				<name>Precio combustible</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>118 218 219 281</position>
+				<position>507 228 608 291</position>
 			</node>
 			<node id="Precio_servicio_de_transporte">
 				<name>Precio servicio de transporte</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>127 331 223 391</position>
-			</node>
-			<node id="Ca_das_de_electricidad">
-				<name>Caídas de electricidad</name>
-				<interior color="e5f6f7" />
-				<outline color="000080" />
-				<font color="000000" name="Arial" size="8" />
-				<position>415 356 495 406</position>
-			</node>
-			<node id="Tiempo_de_llegada">
-				<name>Tiempo de llegada</name>
-				<interior color="e5f6f7" />
-				<outline color="000080" />
-				<font color="000000" name="Arial" size="8" />
-				<position>692 52 798 93</position>
-			</node>
-			<node id="Coste">
-				<name>Coste</name>
-				<interior color="e5f6f7" />
-				<outline color="000080" />
-				<font color="000000" name="Arial" size="8" />
-				<position>743 149 791 181</position>
-			</node>
-			<node id="Comodidad">
-				<name>Comodidad</name>
-				<interior color="e5f6f7" />
-				<outline color="000080" />
-				<font color="000000" name="Arial" size="8" />
-				<position>728 239 801 271</position>
-			</node>
-			<node id="N_mero_de__transbordos">
-				<name>Número de  transbordos</name>
-				<interior color="e5f6f7" />
-				<outline color="000080" />
-				<font color="000000" name="Arial" size="8" />
-				<position>722 319 815 379</position>
-			</node>
-			<node id="Emisiones_de_CO2">
-				<name>Emisiones de CO2</name>
-				<interior color="e5f6f7" />
-				<outline color="000080" />
-				<font color="000000" name="Arial" size="8" />
-				<position>717 421 815 509</position>
+				<position>317 63 413 123</position>
 			</node>
 			<node id="Predicci_n_meteorol_gica">
 				<name>Predicción meteorológica</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>390 22 480 78</position>
+				<position>93 264 183 320</position>
 				<barchart width="128" height="90" />
+			</node>
+			<node id="Elecci_n_transporte">
+				<name>Elección transporte</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1212 218 1309 250</position>
+			</node>
+			<node id="Econ_micos">
+				<name>Económicos</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1022 75 1100 107</position>
+			</node>
+			<node id="Confort">
+				<name>Confort</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1069 215 1133 247</position>
+			</node>
+			<node id="Sociales">
+				<name>Sociales</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1037 318 1105 362</position>
+			</node>
+			<node id="Tipo_de_transporte">
+				<name>Tipo de transporte</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>859 263 967 295</position>
+			</node>
+			<node id="Terrestre">
+				<name>Terrestre</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>737 332 802 364</position>
+			</node>
+			<node id="Subterr_neo">
+				<name>Subterráneo</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>717 254 797 286</position>
+			</node>
+			<node id="Tiempo_llegada">
+				<name>Tiempo llegada</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>696 39 787 71</position>
+			</node>
+			<node id="Coste">
+				<name>Coste</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>709 87 766 119</position>
+			</node>
+			<node id="Transbordos">
+				<name>Transbordos</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>880 134 962 166</position>
+			</node>
+			<node id="Tiempo_espera">
+				<name>Tiempo espera</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>871 174 962 206</position>
+			</node>
+			<node id="Personas_del_habit_culo">
+				<name>Personas del habitáculo</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>841 217 961 252</position>
+			</node>
+			<node id="Contaminaci_n">
+				<name>Contaminación</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>806 550 896 582</position>
+			</node>
+			<node id="Ruidos">
+				<name>Ruidos</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>867 323 920 355</position>
+			</node>
+			<node id="Tipo_de_transporte_2">
+				<name>Tipo de transporte</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>508 300 614 368</position>
 			</node>
 		</genie>
 	</extensions>

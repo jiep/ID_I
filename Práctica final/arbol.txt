@@ -1,0 +1,63 @@
+Value Tree
+0 Medio transporte
+  1 Económicos 0.426
+        4 Tiempo llegada 0.625
+            6 Coche 0.782
+            6 Autobús 0.448
+            6 Cercanías 0.553
+            6 Metro 0.603
+        4 Coste 0.375
+            6 Coche 0.979
+            6 Autobús 0.930
+            6 Cercanías 0.930
+            6 Metro 0.961
+  1 Confort 0.255
+        4 Transbordos 0.241
+            6 Autobús 1.000
+            6 Cercanías 0.064
+            6 Metro 0.279
+        4 Tiempo espera 0.276
+            6 Coche 1.000
+            6 Autobús 0.268
+            6 Cercanías 0.139
+            6 Metro 0.268
+        4 Personas del habitáculo 0.138
+            6 Coche 1.000
+            6 Autobús 0.353
+            6 Cercanías 0.050
+            6 Metro 0.107
+      3 Tipo transporte 0.345
+        4 Subterráneo 0.286
+            6 Cercanías 0.200
+            6 Metro 0.800
+        4 Terrestre 0.714
+            6 Coche 0.800
+            6 Autobús 0.200
+  1 Accesibilidad 0.128
+        4 Rampas  0.100
+            6 Autobús 0.858
+            6 Cercanías 0.623
+            6 Metro 0.623
+        4 Ascensores 0.900
+            6 Autobús 0.000
+            6 Cercanías 0.421
+            6 Metro 0.665
+  1 Sociales 0.191
+        4 Contaminación 0.800
+            6 Coche 0.697
+            6 Autobús 0.940
+            6 Cercanías 0.940
+            6 Metro 0.979
+        4 Ruidos 0.200
+            6 Coche 0.813
+            6 Autobús 0.671
+            6 Cercanías 0.671
+            6 Metro 0.752
+
+Composite Priorities
+           Coche      Cercanías  Metro      Autobús    
+Económicos 0.364      0.296      0.314      0.268      
+Confort    0.156      0.020      0.060      0.106      
+Sociales   0.138      0.170      0.179      0.170      
+Accesibili 0.000      0.056      0.084      0.011      
+Overall    0.658      0.542      0.637      0.554     
