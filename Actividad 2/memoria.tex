@@ -102,7 +102,7 @@ El diagrama de influencia completo se muestra en la Figura~\ref{fig:diagrama_inf
 	
 \end{itemize}
 
-Teniendo en cuenta los datos del enunciado se introduce las probabilidades de los nodos de azar en GeNIe, que se muestran en la Figura~\ref{fig:azar}.
+Teniendo en cuenta los datos del enunciado se introducen las probabilidades de los nodos de azar en GeNIe, que se muestran en la Figura~\ref{fig:azar}.
 
 \begin{figure}[htbp!]
 	\centering
@@ -123,7 +123,7 @@ Sólo nos queda introducir la utilidad del nodo Beneficio. Para ello, calculamos
 
 Consideremos algún ejemplo. La utilidad de explotar el pozo, sabiendo que hemos recibido la autorización y hemos contratado a Arnald's es -0.1 (por contratar a Arnald's) -5*5 (por explotar el pozo) + 8*5 (por vender en el mercado USA) = 14.9 millones de euros.\\
 
-La utilidad de explotar el pozo sabiendo que no hemos recibido la autorización y habiendo contratado a Arnald's es -0.1 (por contratar a Arnald's) -5*5 (por explotar el pozo) - 1*5 (multa de Cuba por tener la autorización) = -30.1 millones de euros.\\
+La utilidad de explotar el pozo sabiendo que no hemos recibido la autorización y habiendo contratado a Arnald's es -0.1 (por contratar a Arnald's) -5*5 (por explotar el pozo) - 1*5 (multa de Cuba por no tener la autorización) = -30.1 millones de euros.\\
 
 De forma similar se obtiene el resto de los casos.\\
 
@@ -151,7 +151,7 @@ Si ahora observamos los resultados del nodo Explotar pozo, observamos que tanto 
 
 En definitiva, para obtener la máxima utilidad, deberemos no contratar al bufete de abogados Arnald's, y explotar el pozo en caso de obtener la autorización, y no explotar si no obtenemos la autorización.\\
 
-Si ahora la probabilidad de que gane el partido Republicano es de 0.4, tenemos el mismo resultado global anterior, pero con utilidades diferentes. En el caso del nodo Contratar Arnald's tenemos una utilidad de 7.2 para no contratar, por 7.1 para contratar. En el caso del nodo de Explotar pozo, se obtienen los mismos resultados que en el caso anterior.\\
+Si ahora la probabilidad de que gane el partido Republicano es de 0.4, debemos cambiar las probabilidades del nodo Encuesta NYT. Si resolvemos el diagrama de influencia, tenemos el mismo resultado global anterior, pero con utilidades diferentes. En el caso del nodo Contratar Arnald's tenemos una utilidad de 7.2 para no contratar, por 7.1 para contratar. En el caso del nodo de Explotar pozo, se obtienen los mismos resultados que en el caso anterior.\\
 
 Si, por último, consideramos, que la probabilidad de que gane el partido Republicano es de 0.8, los resultados son idénticos al caso anterior: sólo varía la utilidad de contratar a Arnold's: 5.4 en caso de no contratar, por 5.3 en caso de contratar.\\
 
