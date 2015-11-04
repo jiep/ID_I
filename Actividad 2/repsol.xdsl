@@ -8,7 +8,7 @@
 		<cpt id="Encuesta_NYT">
 			<state id="PartidoRepublicano" />
 			<state id="PartidoDemocrata" />
-			<probabilities>0.8 0.2</probabilities>
+			<probabilities>0.5600000000000001 0.44</probabilities>
 		</cpt>
 		<cpt id="Recibir_autorizaci_n">
 			<state id="Recibir" />
