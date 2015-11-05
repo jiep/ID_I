@@ -1,0 +1,18 @@
+WorkSpace
+INTERMEDIATE_NODES NUMBER
+1
+
+Overall_Objective.
+O_Objtv
+null
+Overall_Objective_Description.
+-500 1232
+1000 -4000
+0 0
+
+LEAF NODES.
+0
+STRATEGY NUMBER.
+0
+
+STRATEGY NAMES
