@@ -1,0 +1,5 @@
+STRATEGIES NAMES
+Coche
+Autobus
+Metro
+Cercanias

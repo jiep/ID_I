@@ -1,0 +1,327 @@
+\documentclass[12pt,a4paper,twoside,openright,titlepage,final]{article}
+\usepackage{fontspec}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage[hidelinks,unicode=true]{hyperref}
+\usepackage[spanish,es-nodecimaldot,es-lcroman,es-tabla,es-noshorthands]{babel}
+\usepackage[left=3cm,right=2cm, bottom=4cm]{geometry}
+\usepackage{natbib} 
+\usepackage{microtype}
+\usepackage{ifdraft}
+\usepackage{verbatim}
+\usepackage[obeyDraft]{todonotes}
+\ifdraft{
+	\usepackage{draftwatermark}
+	\SetWatermarkText{BORRADOR}
+	\SetWatermarkScale{0.7}
+	\SetWatermarkColor{red}
+}{}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{calc}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{subfigure}
+\usepackage{footnote}
+\usepackage{url}
+\usepackage{tikz}
+
+%\setsansfont[Ligatures=TeX]{texgyreadventor}
+%\setmainfont[Ligatures=TeX]{texgyrepagella}
+
+\input{portada}
+
+\author{José Ignacio Escribano}
+
+\title{Práctica final}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\pagenumbering{alph}
+\setcounter{page}{1}
+
+\portada{Práctica final}{Ingeniería de la Decisión}{Ruta óptima para llegar al trabajo}{José Ignacio Escribano}{Móstoles}
+
+\listoffigures
+\thispagestyle{empty}
+\newpage
+
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\section{Introducción}
+
+Habitualmente, nos desplazamos para llegar al trabajo, y tenemos, en general, varias formas de ellas hasta él. Los medios de transporte disponibles son el coche, metro, autobús y Cercanías Renfe. Nuestro objetivo es llegar lo más rápido posible, es decir, minimizar el tiempo de llegada hasta el trabajo. Supondremos que nuestro trabajo se encuentra en la ciudad de Madrid, y hasta él tenemos una distancia de 30 kilómetros (por carretera). Preferimos los medios terrestres (coche y autobús) sobre los medios subterráneos (metro y Cercanías). Además de llegar lo antes posible, también queremos tener la máxima comodidad, que sea lo más barato y que contamine lo menos posible. Si se elige los servicios de transporte (metro, autobús o Cercanías) se quiere minimizar el número de transbordos.\\
+
+\section{Resolución del problema}
+
+\subsection{Estructuración del problema}
+
+Para resolver el problema comenzamos identificando los distintos elementos que componen el problema, esto es, identificamos los factores de incertidumbre, los objetivos conflictivos, la influencia del tiempo, los decisores y los grupos afectados:\\
+
+\begin{itemize}
+	
+	\item \textbf{Factores de incertidumbre}
+	
+	\begin{itemize}
+		\item Condiciones meteorológicas (lluvia, nieve, hielo, sol, ...), precio del combustible, precio de los servicios de transporte, nivel de contaminación, la predicción meteorológica
+	\end{itemize}
+	
+	\item \textbf{Objetivos conflictivos}
+	
+	\begin{itemize}
+		\item Minimizar el tiempo de llegada, minimizar el coste, maximizar la comodidad, preferencia de medios terrestres sobre medios subterráneos, minimizar el número de transbordos, minimizar las emisiones de CO2.
+	\end{itemize}
+	
+	\item \textbf{Influencia del tiempo}
+	
+	\begin{itemize}
+		\item Condiciones meteorológicas, precio del combustible, precio de los servicios de transporte (tanto a corto como a largo plazo), día y hora en la que nos encontremos (por ejemplo, no es lo mismo ir a trabajar un domingo que habrá menos tráfico por la carretera, que un lunes por la mañana que seguramente habrá retenciones), apertura de nuevas carreteras o nuevos servicios en los medios de transporte.
+	\end{itemize}
+	
+	\item \textbf{Decisores}
+	
+	\begin{itemize}
+		\item Nosotros mismos
+	\end{itemize}
+	
+	\item \textbf{Grupos afectados}
+	
+	\begin{itemize}
+		\item Nosotros mismos, usuarios de los servicios de transporte, usuarios de coches, ciudadanos de Madrid (por la contaminación)
+	\end{itemize}
+\end{itemize}
+
+Una vez que tenemos identificamos los elementos del problema, procedemos a crear el diagrama de influencia.\\
+
+En primer lugar, ponemos las incertidumbres, los objetivos y las decisiones (elegir medio de transporte) en GeNIe (Figura~\ref{fig:diagrama_1}).\\
+ 
+
+\begin{figure}[tbph!]
+\centering
+\includegraphics[width=0.9\linewidth]{imagenes/diagrama_1}
+\caption{Primer boceto del diagrama de influencia}
+\label{fig:diagrama_1}
+\end{figure}
+
+En este primer boceto, sólo introducimos los objetivos de minimizar el coste y el tiempo de llegada. Más adelante consideraremos los demás objetivos.\\
+
+Nos queda introducir los arcos entre los nodos. Para ello, consideramos las influencias entre cada uno de los nodos (Figura~\ref{fig:diagrama_2}).\\
+
+Comencemos con el nodo de Condiciones meteorológicas: hay un arco entre este nodo y nivel de contaminación ya que las condiciones meteorológicas condicionan el nivel de contaminación. También hay un arco hacia el nodo de valor Tiempo llegada ya que la meteorología influye en el tiempo que tardaremos en llegar al trabajo.\\
+
+En el nodo Predicción meteorológica, tenemos un arco hacia Condiciones meteorológicas, ya que la condiciones meteorológica vendrán determinadas por las condiciones meteorológicas.\\
+
+El precio del combustible condiciona al Precio del servicio de transporte, y ambos precios afectan al objetivo del coste.\\
+
+Para tomar la decisión, conocemos la predicción meteorológica, las condiciones meteorológicas actuales, los precios del combustible y de los servicios de transporte, y el nivel de contaminación.
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{imagenes/diagrama_2}
+	\caption{Diagrama de influencia con los arcos}
+	\label{fig:diagrama_2}
+\end{figure}
+
+\subsection{Modelización de creencias}
+
+Ahora procedemos a asignar probabilidades a los nodos de azar.\\
+
+En primer lugar consideraremos los estados de los nodos Condiciones y Predicción meteorológica. Éstos serán cuatro posibles: Lluvia, nieve, niebla y despejado.\\
+
+Se sabe que la predicción de lluvia se dio el 15\% de los casos, nieve en el 5\%, niebla en el 10\% y despejado el 70\%. En la Figura~\ref{fig:prob_pred_met} se puede ver cómo queda en GeNIe.\\   
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=0.3\linewidth]{imagenes/prob_pred_met}
+	\caption{Estados y probabilidades del nodo Predicción meteorológica}
+	\label{fig:prob_pred_met}
+\end{figure}
+
+También se conocen las probabilidades de que se produzcan las condiciones meteorológicas actuales dadas las predicción (Tabla~\ref{tbl:condicionadas}).
+
+\begin{table}[htbp!]
+	\centering
+	\caption{Probabilidades de las condiciones condicionadas a las predicciones meteorológicas}
+	\label{tbl:condicionadas}
+	\begin{tabular}{@{}ccccc@{}}
+		\toprule
+		Condiciones\textbackslash Predicción & Lluvia & Nieve & Niebla & Despejado \\ \midrule
+		Lluvia                               & 0.8    & 0.3   & 0.3    & 0.1       \\
+		Nieve                                & 0.01   & 0.6   & 0.2    & 0.01      \\
+		Niebla                               & 0.1    & 0.05  & 0.4    & 0.01      \\
+		Despejado                            & 0.09   & 0.05  & 0.1    & 0.88      \\ \bottomrule
+	\end{tabular}
+\end{table} 
+
+En el nodo Precio combustible consideramos dos estados: precio alto y bajo. Diremos que el precio es alto si nos cuesta 1 litro de gasolina más de 1.20 euros. En caso contrario, tenemos un precio bajo.\\
+
+Se conoce que el 70\% de los días de los últimos cinco años, el precio del combustible ha estado alto. El 30\% ha estado bajo.\\
+
+Con el precio del transporte tenemos, de nuevo, dos estados: precio alto y bajo. Consideraremos que el precio del transporte es alto si la media aritmética de los transportes públicos (metro, autobús y Cercanías) es mayor a 3 euros. En caso contrario, el precio es bajo.\\
+
+Se saben las probabilidades del precio del transporte público, dado el precio del combustible (Tabla~\ref{tbl:condicionadas_2}).
+
+\begin{table}[htbp!]
+	\centering
+	\caption{Probabilidades del precio del transporte condicionadas al precio del combustible}
+	\label{tbl:condicionadas_2}
+	\begin{tabular}{@{}ccc@{}}
+		\toprule
+		Precio transporte \textbackslash Precio combustible & Precio alto & Precio bajo \\ \midrule
+		Precio alto                                         & 0.75        & 0.5         \\
+		Precio bajo                                         & 0.25        & 0.5         \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+El último nodo que nos queda es el Nivel de contaminación. Tenemos dos estados contaminación alta y baja. Consideramos que el nivel es alto si se tiene una medida superior a 700 ppm (partes por millón).
+
+Por último, conocemos la probabilidad del nivel de contaminación dadas las condiciones meteorológicas (Tabla~\ref{tbl:condicionadas_3}).\\
+
+\begin{table}[htbp!]
+	\centering
+	\caption{Probabilidades del nivel de contaminación dadas las condiciones meteorológicas}
+	\label{tbl:condicionadas_3}
+	\begin{tabular}{@{}ccccc@{}}
+		\toprule
+		Nivel contaminación \textbackslash Condiciones meteorológicas & Lluvia & Nieve & Niebla & Despejado \\ \midrule
+		Nivel alto                                                    & 0.7    & 0.5   & 0.4    & 0.3       \\
+		Nivel bajo                                                    & 0.25   & 0.5   & 0.6    & 0.7       \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+Todos las probabilidades anteriores las introducimos en el modelo de GeNIe.
+
+\subsection{Modelización de preferencias}
+
+Ahora modelizamos nuestras preferencias con el software Web-HIPRE.\\
+
+En primer lugar, definimos nuestro modelo jerárquico de objetivos. Nuestro objetivo principal será llegar al trabajo, que a su vez, tiene tres subobjetivos: el económico, el confort y los sociales. En el primero se encuentra el coste y el tiempo de llegada; en el segundo, los transbordos, el tiempo de espera, las personas del habitáculo y el tipo de transporte (que a su vez puede ser terrestre o subterráneo); y los últimos, formado por los ruidos y la contaminación. La Figura~\ref{fig:modelo_jerarquico_objetivos} muestra la jerarquía completa (junto con las alternativas) una vez introducida en Web-HIPRE.
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{imagenes/modelo_jerarquico_objetivos}
+	\caption{Modelo jerárquico de objetivos}
+	\label{fig:modelo_jerarquico_objetivos}
+\end{figure}
+
+Para cada uno de nuestros objetivos terminales (las hojas del árbol), definimos una escala, y los valores máximos y mínimos que pueden tomar cada uno de ellos(Figura~\ref{fig:ratings}).\\
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=\linewidth]{imagenes/ratings}
+	\caption{Ratings de los objetivos terminales}
+	\label{fig:ratings}
+\end{figure}
+
+En el tiempo de llegada, el coste, el número de transbordos, el tiempo de espera se han considerado los valores máximos y mínimos haciendo una estimación, teniendo una referencia para cada alternativa.\\
+
+En los casos de la contaminación y los ruidos, se han tenido que consultar distintas fuentes para establecer los límites inferior y superior, y dar un valor para cada alternativa. En el caso de la contaminación, los valores para cada alternativa se han calculado con la calculadora de CO2 de Terra \url{http://www.terra.org/calc/}. Notar que esta calculadora necesita la distancia recorrida (en kilómetros) y el número de veces que se realiza el trayecto. En nuestro caso son 30 kiómetros y una vez al día (sólo consideramos el trayecto de ida). Aplicando los parámetros para cada transporte y dividiendo entre 365 (calcula los kilogramos de CO2 emitidos en un año), se obtienen los valores de la Figura~\ref{fig:ratings}.\\
+
+En el caso del ruido, marcamos el límite máximo como 100, por debajo del umbral del dolor situado en 120 dB, según la OMS. Para establacer medidas para cada una de las alternativas, consultamos distintas páginas web y blogs, que nos llevan a los datos de la Figura~\ref{fig:ratings}.\\
+
+Ya estamos en disposición de introducir las funciones de valor para cada uno de los objetivos.\\
+
+Comenzamos con el coste. Usando el método Valuefn, creamos una función de valor de tipo exponencial donde se le da al coche como valor 0.979, al metro 0.961 y, al Cercanías y al autobús, 0.930. Es decir, consideramos diferencias mínimas entre los precios de los medios de transporte (Figura~\ref{fig:prioridades_coste}).\\
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=0.5\linewidth]{imagenes/prioridades_coste}
+	\caption{Función de valor del coste}
+	\label{fig:prioridades_coste}
+\end{figure}
+
+En el caso del tiempo de llegada, el número de transbordos, el tiempo de espera, personas del habitáculo, la contaminación y el ruido calculamos la función de valor empleando el mismo método, Valuefn. Las funciones de valor de cada uno de estos objetivos se pueden ver en la Figura~\ref{fig:prioridades}.
+
+\begin{figure}[htbp!]
+\centering
+\subfigure[Función de valor del tiempo de llegada]{\includegraphics[width=0.4\linewidth]{imagenes/prioridades_tiempo_llegada}}
+\subfigure[Función de valor del número de transbordos]{\includegraphics[width=0.4\linewidth]{imagenes/prioridades_transbordos}}
+\subfigure[Función de valor del tiempo de espera]{\includegraphics[width=0.4\linewidth]{imagenes/prioridades_tiempo_espera}}
+\subfigure[Función de valor del número de personas del habitáculo]{\includegraphics[width=0.4\linewidth]{imagenes/prioridades_personas_del_habitaculo}}
+\subfigure[Función de valor de la contaminación]{\includegraphics[width=0.4\linewidth]{imagenes/prioridades_contaminacion}}
+\subfigure[Función de valor del ruido]{\includegraphics[width=0.4\linewidth]{imagenes/prioridades_ruidos}}
+\caption{Funciones de valor para tiempo de llegada, el número de transbordos, el tiempo de espera, personas del habitáculo, la contaminación y el ruido} \label{fig:prioridades}
+\end{figure}
+
+\clearpage
+
+Para el caso de los tipos de transporte, terrestre y subterráneo, empleamos el método Direct para asignar la función de valor. Notar que todas las alternativas no son medios de transporte subterráneo y terrestre simultáneamente, sino que sólo pueden ser de un solo tipo. Por ello, sólo unimos el tipo de transporte con sus alternativas correctas (coche y autobús para terrestre, y Cercanías y metro para subterráneo). De esta forma, asignamos pesos a los medios de transporte correctos. La Figura~\ref{fig:prioridades_t_transporte} muestra los pesos para terrestre y subterráneo.
+
+\begin{figure}[htbp!]
+\centering
+\subfigure[Función de valor de terrestre]{\includegraphics[width=0.4\linewidth]{imagenes/prioridades_terrestre}}
+\subfigure[Función de valor de subterráneo]{\includegraphics[width=0.4\linewidth]{imagenes/prioridades_subterraneo}}
+\caption{Pesos para terrestre y subterráneo} \label{fig:prioridades_t_transporte}
+\end{figure}
+
+Para la asignación de prioridades en el caso del tipo de transporte, usamos el modo SWING, donde hay que asignar 100 puntos a la opción más prioritaria (terrestre en nuestro) y dar otra puntuación (menor que 100) a las otras opciones (sólo nos queda la opción de subterráneo a la que damos 40 puntos). Ver Figura~\ref{fig:prioridades_tipo_transporte}.\\
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=0.5\linewidth]{imagenes/prioridades_tipo_transporte}
+\caption{Pesos para tipo de transporte} \label{fig:prioridades_tipo_transporte}
+\end{figure}
+
+De nuevo, usamos el método SWING para ajustar los pesos del objetivo Económicos y Confort. En el caso de Ecónimcos asignamos 100 puntos a la opción Tiempo llegada y 40 puntos al coste. Para Confort, asignamos 100 puntos a Tipo transporte, 80 al timepo de espera, 70 al número de transbordos y 40 al número de personas del habitáculo. Ver Figura~\ref{fig:swing_2}.
+
+\begin{figure}[htbp!]
+\centering
+\subfigure[Asignación de pesos para Ecónomicos]{\includegraphics[width=0.4\linewidth]{imagenes/prioridades_economicos}}
+\subfigure[Asignación de pesos para Confort]{\includegraphics[width=0.4\linewidth]{imagenes/prioridades_confort}}
+\caption{Pesos para Económicos y Confort} \label{fig:swing_2}
+\end{figure}
+
+Para el objetivo Sociales, asignamos los pesos con el método Direct. Damos 0.8 a la contaminación y 0.2 a los ruidos (Figura~\ref{fig:prioridades_sociales}).\\
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=0.5\linewidth]{imagenes/prioridades_sociales}
+\caption{Pesos para Sociales} \label{fig:prioridades_sociales}
+\end{figure}
+
+Por último, sólo nos queda asignar pesos al objetivo de elegir medio de transporte. Usamos, de nuevo, el método SWING. Damos 100 puntos al objetivos Económicos, 60 a Confort y 45 a Sociales.\\
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=0.5\linewidth]{imagenes/prioridades_medio_transporte}
+\caption{Asignación de pesos para Medio de transporte} \label{fig:prioridades_medio_transporte}
+\end{figure}
+
+Ya tenemos asignadas las prioridades a todos los objetivos. Ahora debemos analizar nuestras preferencias. La Figura~\ref{fig:analisis_1} muestra los resultados según los objetivos primarios. Observamos que nuestra opción preferida es el coche, seguido del metro y el autobús. En última opción se encuntra Cercanías. De acuerdo a lo establecido anteriormente, los objetivos económicos pesan mucho para la elección de la alternativa.\\
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=0.5\linewidth]{imagenes/analisis_1}
+\caption{Preferencias según objetivos Económicos, Confort y Sociales} \label{fig:analisis_1}
+\end{figure}
+
+Si, por último, consideramos los resultados según los objetivos terminales (Figura~\ref{fig:analisis_2}) observamos que lo que más peso tiene dentro de nuestras preferencias es el tiempo de llegada, seguido del coste, y en menor medida, la contaminación.\\
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=0.5\linewidth]{imagenes/analisis_1}
+\caption{Preferencias según objetivos terminales} \label{fig:analisis_2}
+\end{figure}
+
+\subsection{Optimización}
+
+Antes de poder optimizar, necesitamos cohesionar nuestros dos modelos: el diagrama de influencia y el modelo jerárquico de objetivos.\\
+
+\subsection{Análisis del modelo}
+
+\section{Conclusiones}
+
+
+
+\end{document} 
