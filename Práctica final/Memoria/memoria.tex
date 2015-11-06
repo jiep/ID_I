@@ -12,6 +12,7 @@
 \usepackage{microtype}
 \usepackage{ifdraft}
 \usepackage{verbatim}
+\usepackage[spanish]{cleveref}
 \usepackage[obeyDraft]{todonotes}
 \ifdraft{
 	\usepackage{draftwatermark}
@@ -28,6 +29,18 @@
 \usepackage{footnote}
 \usepackage{url}
 \usepackage{tikz}
+
+\usetikzlibrary{positioning}
+
+\tikzset{%
+  zeroarrow/.style = {-stealth,dashed},
+  onearrow/.style = {-stealth,solid},
+  c/.style = {circle,draw,solid,minimum width=2em,
+        minimum height=2em},
+  r/.style = {rectangle,draw,solid,minimum width=2em,
+        minimum height=2em}
+}
+
 
 %\setsansfont[Ligatures=TeX]{texgyreadventor}
 %\setmainfont[Ligatures=TeX]{texgyrepagella}
@@ -316,9 +329,250 @@ Si, por último, consideramos los resultados según los objetivos terminales (Fi
 
 \subsection{Optimización}
 
-Antes de poder optimizar, necesitamos cohesionar nuestros dos modelos: el diagrama de influencia y el modelo jerárquico de objetivos.\\
+Antes de poder optimizar, necesitamos cohesionar nuestros dos modelos: el diagrama de influencia y el modelo jerárquico de objetivos (Figura~\ref{fig:diagrama_influencia_completo}).\\
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=\linewidth]{imagenes/diagrama_influencia_completo}
+\caption{Modelo completo} \label{fig:diagrama_influencia_completo}
+\end{figure}
+
+Observamos la inclusión de un nodo determinístico llamado Tipo de transporte para distinguir entre los medios de transporte terrestres y subterráneos. En la Figura~\ref{fig:tipo_de_transporte} se muestran los distintos valores de este nodo.\\ 
+
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=0.6\linewidth]{imagenes/tipo_de_transporte}
+\caption{Valores del nodo determinístico Tipo de transporte} \label{fig:tipo_de_transporte}
+\end{figure}
+
+Ya podemos introducir los valores en los nodos de valor obtenidos con Web-HIPRE.\\
+
+Resolvemos el modelo con GeNIe, obteniendo los resultados que se muestran en la Figura~\ref{fig:solucion}.
+
+\begin{figure}[htbp!]
+\centering
+\subfigure[Solución para condiciones meteorológicas de lluvia]{\includegraphics[width=\linewidth]{imagenes/solucion_lluvia}}
+\subfigure[Solución para condiciones meteorológicas de nieve]{\includegraphics[width=\linewidth]{imagenes/solucion_nieve}}
+\subfigure[Solución para condiciones meteorológicas de niebla]{\includegraphics[width=\linewidth]{imagenes/solucion_niebla}}
+\subfigure[Solución para condiciones meteorológicas con el cielo despejado]{\includegraphics[width=\linewidth]{imagenes/solucion_despejado}}
+\caption{Solución del modelo} \label{fig:solucion}
+\end{figure}
 
 \subsection{Análisis del modelo}
+
+Puesto que la solución tiene muchas incertidumbres representamos, en forma de árbol, para cada condición meteorólogica el metro de transporte que da la solución. Ver~\Cref{fig:sol_lluvia,fig:sol_nieve,fig:sol_niebla,fig:sol_despejado}. En cada una de las figuras se indica en azul las condiciones meteorológicas, en amarillo el nivel de contaminación, en verde el precio del combustible y, en rojo el precio del transporte.\\
+
+\begin{figure}[htbp!]
+\centering
+\begin{tikzpicture}[
+level 1/.style={sibling distance=60mm},
+level 2/.style={sibling distance=30mm},
+level 3/.style={sibling distance=15mm},
+level 4/.style={sibling distance=8mm},
+every text node part/.style={align=center},
+scale=1.25
+]
+\node[c,fill=blue!20] {Lluvia}
+    child{ node[c, fill=yellow!20]  {Baja} edge from parent[onearrow]
+            child{ node[c, fill=green!20] {Alto} 
+                    child{ node[c, fill=red!20] {Alto} 
+                        child{ node[r] {Autobús} edge from parent} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Metro} edge from parent}
+                    }
+            }
+            child{ node [c, fill=green!20] {Bajo} edge from parent[onearrow]
+                    child{ node[c, fill=red!20] {Alto}  edge from parent[onearrow]
+                        child{ node[r] {Coche} edge from parent} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Metro} edge from parent} 
+                    }
+            }
+    }
+    child{ node[c,fill=yellow!20] {Alta} edge from parent[onearrow]
+            child{ node [c, fill=green!20] {Alto} edge from parent
+                    child{ node[c, fill=red!20] {Alto} 
+                        child{ node[r] {Autobús} edge from parent[onearrow]} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Metro} edge from parent} 
+                    }
+            }
+            child{ node [c, fill=green!20] {Bajo} edge from parent[onearrow]
+                    child{ node[c, fill=red!20] {Alto} edge from parent
+                        child{ node[r] {Metro} edge from parent[onearrow]} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Metro} edge from parent} 
+                    }
+            }
+    }
+;
+\end{tikzpicture}
+\caption{Árbol con la solución para condiciones de lluvia}
+\label{fig:sol_lluvia}
+\end{figure}
+
+\begin{figure}[htbp!]
+\centering
+\begin{tikzpicture}[
+level 1/.style={sibling distance=60mm},
+level 2/.style={sibling distance=30mm},
+level 3/.style={sibling distance=15mm},
+level 4/.style={sibling distance=8mm},
+every text node part/.style={align=center},
+scale=1.25
+]
+\node[c,fill=blue!20] {Nieve}
+    child{ node[c, fill=yellow!20]  {Baja} edge from parent[onearrow]
+            child{ node[c, fill=green!20] {Alto} 
+                    child{ node[c, fill=red!20] {Alto} 
+                        child{ node[r] {Metro} edge from parent} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Metro} edge from parent}
+                    }
+            }
+            child{ node [c, fill=green!20] {Bajo} edge from parent[onearrow]
+                    child{ node[c, fill=red!20] {Alto}  edge from parent[onearrow]
+                        child{ node[r] {Coche} edge from parent} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Metro} edge from parent} 
+                    }
+            }
+    }
+    child{ node[c,fill=yellow!20] {Alta} edge from parent[onearrow]
+            child{ node [c, fill=green!20] {Alto} edge from parent
+                    child{ node[c, fill=red!20] {Alto} 
+                        child{ node[r] {Metro} edge from parent[onearrow]} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Metro} edge from parent} 
+                    }
+            }
+            child{ node [c, fill=green!20] {Bajo} edge from parent[onearrow]
+                    child{ node[c, fill=red!20] {Alto} edge from parent
+                        child{ node[r] {Metro} edge from parent[onearrow]} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Metro} edge from parent} 
+                    }
+            }
+    }
+;
+\end{tikzpicture}
+\caption{Árbol con la solución para condiciones de nieve}
+\label{fig:sol_nieve}
+\end{figure}
+
+\begin{figure}[htbp!]
+\centering
+\begin{tikzpicture}[
+level 1/.style={sibling distance=60mm},
+level 2/.style={sibling distance=30mm},
+level 3/.style={sibling distance=15mm},
+level 4/.style={sibling distance=8mm},
+every text node part/.style={align=center},
+scale=1.25
+]
+\node[c,fill=blue!20] {Niebla}
+    child{ node[c, fill=yellow!20]  {Baja} edge from parent[onearrow]
+            child{ node[c, fill=green!20] {Alto} 
+                    child{ node[c, fill=red!20] {Alto} 
+                        child{ node[r] {Coche} edge from parent} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Metro} edge from parent}
+                    }
+            }
+            child{ node [c, fill=green!20] {Bajo} edge from parent[onearrow]
+                    child{ node[c, fill=red!20] {Alto}  edge from parent[onearrow]
+                        child{ node[r] {Coche} edge from parent} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Coche} edge from parent} 
+                    }
+            }
+    }
+    child{ node[c,fill=yellow!20] {Alta} edge from parent[onearrow]
+            child{ node [c, fill=green!20] {Alto} edge from parent
+                    child{ node[c, fill=red!20] {Alto} 
+                        child{ node[r] {Autobús} edge from parent[onearrow]} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Metro} edge from parent} 
+                    }
+            }
+            child{ node [c, fill=green!20] {Bajo} edge from parent[onearrow]
+                    child{ node[c, fill=red!20] {Alto} edge from parent
+                        child{ node[r] {Metro} edge from parent[onearrow]} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Metro} edge from parent} 
+                    }
+            }
+    }
+;
+\end{tikzpicture}
+\caption{Árbol con la solución para condiciones de niebla}
+\label{fig:sol_niebla}
+\end{figure}
+
+\begin{figure}[htbp!]
+\centering
+\begin{tikzpicture}[
+level 1/.style={sibling distance=60mm},
+level 2/.style={sibling distance=30mm},
+level 3/.style={sibling distance=15mm},
+level 4/.style={sibling distance=8mm},
+every text node part/.style={align=center},
+scale=1.25
+]
+\node[c,fill=blue!20] {Desp.}
+    child{ node[c, fill=yellow!20]  {Baja} edge from parent[onearrow]
+            child{ node[c, fill=green!20] {Alto} 
+                    child{ node[c, fill=red!20] {Alto} 
+                        child{ node[r] {Coche} edge from parent} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Coche} edge from parent}
+                    }
+            }
+            child{ node [c, fill=green!20] {Bajo} edge from parent[onearrow]
+                    child{ node[c, fill=red!20] {Alto}  edge from parent[onearrow]
+                        child{ node[r] {Coche} edge from parent} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Coche} edge from parent} 
+                    }
+            }
+    }
+    child{ node[c,fill=yellow!20] {Alta} edge from parent[onearrow]
+            child{ node [c, fill=green!20] {Alto} edge from parent
+                    child{ node[c, fill=red!20] {Alto} 
+                        child{ node[r] {Metro} edge from parent[onearrow]} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Metro} edge from parent} 
+                    }
+            }
+            child{ node [c, fill=green!20] {Bajo} edge from parent[onearrow]
+                    child{ node[c, fill=red!20] {Alto} edge from parent
+                        child{ node[r] {Metro} edge from parent[onearrow]} 
+                    }
+                    child{ node[c, fill=red!20] {Bajo} edge from parent[onearrow]
+                        child{ node[r] {Metro} edge from parent} 
+                    }
+            }
+    }
+;
+\end{tikzpicture}
+\caption{Árbol con la solución para condiciones de cielo despejado}
+\label{fig:sol_despejado}
+\end{figure}
 
 \section{Conclusiones}
 
