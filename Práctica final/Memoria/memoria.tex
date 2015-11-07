@@ -42,8 +42,8 @@
 }
 
 
-%\setsansfont[Ligatures=TeX]{texgyreadventor}
-%\setmainfont[Ligatures=TeX]{texgyrepagella}
+\setsansfont[Ligatures=TeX]{texgyreadventor}
+\setmainfont[Ligatures=TeX]{texgyrepagella}
 
 \input{portada}
 
@@ -267,8 +267,6 @@ En el caso del tiempo de llegada, el número de transbordos, el tiempo de espera
 \caption{Funciones de valor para tiempo de llegada, el número de transbordos, el tiempo de espera, personas del habitáculo, la contaminación y el ruido} \label{fig:prioridades}
 \end{figure}
 
-\clearpage
-
 Para el caso de los tipos de transporte, terrestre y subterráneo, empleamos el método Direct para asignar la función de valor. Notar que todas las alternativas no son medios de transporte subterráneo y terrestre simultáneamente, sino que sólo pueden ser de un solo tipo. Por ello, sólo unimos el tipo de transporte con sus alternativas correctas (coche y autobús para terrestre, y Cercanías y metro para subterráneo). De esta forma, asignamos pesos a los medios de transporte correctos. La Figura~\ref{fig:prioridades_t_transporte} muestra los pesos para terrestre y subterráneo.
 
 \begin{figure}[htbp!]
@@ -323,7 +321,7 @@ Si, por último, consideramos los resultados según los objetivos terminales (Fi
 
 \begin{figure}[htbp!]
 \centering
-\includegraphics[width=0.5\linewidth]{imagenes/analisis_1}
+\includegraphics[width=0.5\linewidth]{imagenes/analisis_2}
 \caption{Preferencias según objetivos terminales} \label{fig:analisis_2}
 \end{figure}
 
@@ -360,7 +358,7 @@ Resolvemos el modelo con GeNIe, obteniendo los resultados que se muestran en la 
 
 \subsection{Análisis del modelo}
 
-Puesto que la solución tiene muchas incertidumbres representamos, en forma de árbol, para cada condición meteorólogica el metro de transporte que da la solución. Ver~\Cref{fig:sol_lluvia,fig:sol_nieve,fig:sol_niebla,fig:sol_despejado}. En cada una de las figuras se indica en azul las condiciones meteorológicas, en amarillo el nivel de contaminación, en verde el precio del combustible y, en rojo el precio del transporte.\\
+Puesto que la solución tiene muchas incertidumbres representamos, en forma de árbol, para cada condición meteorólogica el medio de transporte que da la solución. Ver~\Cref{fig:sol_lluvia,fig:sol_nieve,fig:sol_niebla,fig:sol_despejado}. En cada una de las figuras se indica en azul las condiciones meteorológicas, en amarillo el nivel de contaminación, en verde el precio del combustible y, en rojo el precio del transporte.\\
 
 \begin{figure}[htbp!]
 \centering
@@ -415,6 +413,8 @@ scale=1.25
 \label{fig:sol_lluvia}
 \end{figure}
 
+En el caso de condiciones de lluvia, debemos utilizar distintos medios de transporte según el nivel de contaminación, el precio del combustible y de los transportes públicos. Así, en caso de contaminación baja, precio del combustible alto y precio del transporte público alto debemos escoger el autobús. Si tenemos el precio del transporte público, entonces el metro. Si hay contaminación baja, precio del combustible alto y el precio del transporte público es alto, entonces cogeremos el coche. Si el precio del transporte es bajo, debemos elegir el metro. Si la contaminación es alta, el precio del combustible alto, el precio del transporte alto, entonces el autobús cogeremos. Si el precio del transporte es bajo cogeremos el metro. Si el precio del combustible es bajo, entonces escogeremos el metro, independientemente del precio del transporte público.\\
+
 \begin{figure}[htbp!]
 \centering
 \begin{tikzpicture}[
@@ -467,6 +467,8 @@ scale=1.25
 \caption{Árbol con la solución para condiciones de nieve}
 \label{fig:sol_nieve}
 \end{figure}
+
+En el caso de condiciones de nieve, elegiremos siempre el metro, salvo cuando se de que el nivel de contaminación sea baja, el precio del combustible sea bajo y el precio del transporte público sea alto, que elegiremos el coche.\\
 
 \begin{figure}[htbp!]
 \centering
@@ -521,6 +523,8 @@ scale=1.25
 \label{fig:sol_niebla}
 \end{figure}
 
+En caso de niebla, si tenemos contaminación baja, escogeremos el coche, salvo cuando el precio del combustible sea alto y el precio del transporte público bajo. En caso de que haya contaminación alta, elegiremos siempre el metro, salvo cuando el precio del combustible sea alto y el precio del transporte público sea alto que escogeremos el autobús.\\
+
 \begin{figure}[htbp!]
 \centering
 \begin{tikzpicture}[
@@ -573,6 +577,14 @@ scale=1.25
 \caption{Árbol con la solución para condiciones de cielo despejado}
 \label{fig:sol_despejado}
 \end{figure}
+
+En caso de que el cielo esté despajado, escogeremos el coche si hay contaminación baja y el metro si la contaminación es alta.\\
+
+\subsection{Análisis de sensibilidad}
+
+A continuación, realizamos un análisis de sensibilidad con Web-HIPRE. A tenor de nuestras elección de preferencias, los modos de asignación más imprecisos son Direct y SWING. Debemos estudiar como varían nuestras preferencias en los nodos cuyos método de asignación de preferencias sea alguno de los dos anteriores. Por brevedad, solo comentaremos cómo cambia la solución del nodo Medio Tranporte si cambian las preferencias de los objetivos Económicos, Confort y Sociales. 
+
+
 
 \section{Conclusiones}
 
