@@ -152,14 +152,21 @@ Ahora procedemos a asignar probabilidades a los nodos de azar.\\
 
 En primer lugar consideraremos los estados de los nodos Condiciones y Predicción meteorológica. Éstos serán cuatro posibles: Lluvia, nieve, niebla y despejado.\\
 
-Se sabe que la predicción de lluvia se dio el 15\% de los casos, nieve en el 5\%, niebla en el 10\% y despejado el 70\%. En la Figura~\ref{fig:prob_pred_met} se puede ver cómo queda en GeNIe.\\   
+Se sabe que la predicción de lluvia se dio el 15\% de los casos, nieve en el 5\%, niebla en el 10\% y despejado el 70\%. En la Figura~\ref{tbl:prob_pred_met} se puede ver cómo queda en GeNIe.\\   
 
-\begin{figure}[tbph!]
-	\centering
-	\includegraphics[width=0.3\linewidth]{imagenes/prob_pred_met}
-	\caption{Estados y probabilidades del nodo Predicción meteorológica}
-	\label{fig:prob_pred_met}
-\end{figure}
+\begin{table}[htbp!]
+\centering
+\caption{Estados y probabilidades del nodo Predicción meteorológican}
+\label{tbl:prob_pred_met}
+\begin{tabular}{@{}cc@{}}
+\toprule
+Predicción & Probabilidad \\ \midrule
+Lluvia     & 0.15         \\
+Nieve      & 0.05         \\
+Niebla     & 0.10         \\
+Despejado  & 0.70         \\ \bottomrule
+\end{tabular}
+\end{table}
 
 También se conocen las probabilidades de que se produzcan las condiciones meteorológicas actuales dadas las predicción (Tabla~\ref{tbl:condicionadas}).
 
@@ -170,10 +177,10 @@ También se conocen las probabilidades de que se produzcan las condiciones meteo
 	\begin{tabular}{@{}ccccc@{}}
 		\toprule
 		Condiciones\textbackslash Predicción & Lluvia & Nieve & Niebla & Despejado \\ \midrule
-		Lluvia                               & 0.8    & 0.3   & 0.3    & 0.1       \\
-		Nieve                                & 0.01   & 0.6   & 0.2    & 0.01      \\
-		Niebla                               & 0.1    & 0.05  & 0.4    & 0.01      \\
-		Despejado                            & 0.09   & 0.05  & 0.1    & 0.88      \\ \bottomrule
+		Lluvia                               & 0.80   & 0.30  & 0.30   & 0.10      \\
+		Nieve                                & 0.01   & 0.60  & 0.20   & 0.01      \\
+		Niebla                               & 0.10   & 0.05  & 0.40   & 0.01      \\
+		Despejado                            & 0.09   & 0.05  & 0.10   & 0.88      \\ \bottomrule
 	\end{tabular}
 \end{table} 
 
@@ -192,8 +199,8 @@ Se saben las probabilidades del precio del transporte público, dado el precio d
 	\begin{tabular}{@{}ccc@{}}
 		\toprule
 		Precio transporte \textbackslash Precio combustible & Precio alto & Precio bajo \\ \midrule
-		Precio alto                                         & 0.75        & 0.5         \\
-		Precio bajo                                         & 0.25        & 0.5         \\ \bottomrule
+		Precio alto                                         & 0.75        & 0.50        \\
+		Precio bajo                                         & 0.25        & 0.50        \\ \bottomrule
 	\end{tabular}
 \end{table}
 
@@ -208,8 +215,8 @@ Por último, conocemos la probabilidad del nivel de contaminación dadas las con
 	\begin{tabular}{@{}ccccc@{}}
 		\toprule
 		Nivel contaminación \textbackslash Condiciones meteorológicas & Lluvia & Nieve & Niebla & Despejado \\ \midrule
-		Nivel alto                                                    & 0.7    & 0.5   & 0.4    & 0.3       \\
-		Nivel bajo                                                    & 0.25   & 0.5   & 0.6    & 0.7       \\ \bottomrule
+		Nivel alto                                                    & 0.70   & 0.50   & 0.40   & 0.30       \\
+		Nivel bajo                                                    & 0.25   & 0.50   & 0.60   & 0.70      \\ \bottomrule
 	\end{tabular}
 \end{table}
 
@@ -582,12 +589,37 @@ En caso de que el cielo esté despajado, escogeremos el coche si hay contaminaci
 
 \subsection{Análisis de sensibilidad}
 
-A continuación, realizamos un análisis de sensibilidad con Web-HIPRE. A tenor de nuestras elección de preferencias, los modos de asignación más imprecisos son Direct y SWING. Debemos estudiar como varían nuestras preferencias en los nodos cuyos método de asignación de preferencias sea alguno de los dos anteriores. Por brevedad, solo comentaremos cómo cambia la solución del nodo Medio Tranporte si cambian las preferencias de los objetivos Económicos, Confort y Sociales. 
+A continuación, realizamos un análisis de sensibilidad con Web-HIPRE. A tenor de nuestras elección de preferencias, los modos de asignación más imprecisos son Direct y SWING. Debemos estudiar como varían nuestras preferencias en los nodos cuyos método de asignación de preferencias sea alguno de los dos anteriores. Por brevedad, solo comentaremos cómo cambia la solución del nodo Medio Tranporte si cambian las preferencias de los objetivos Económicos, Confort y Sociales (Figura~\ref{fig:sensibilidad}).\\
 
 
+\begin{figure}[htbp!]
+\centering
+\subfigure[Análisis de sensibilidad del objetivo Económicos]{\includegraphics[width=0.4\linewidth]{imagenes/sen_economicos}}
+\subfigure[Análisis de sensibilidad del objetivo Económicos]{\includegraphics[width=0.4\linewidth]{imagenes/sen_confort}}
+\subfigure[Análisis de sensibilidad del objetivo Económicos]{\includegraphics[width=0.4\linewidth]{imagenes/sen_sociales}}
+\caption{Análisis de sensibilidad} \label{fig:sensibilidad}
+\end{figure}
+
+En el caso del objetivo Ecónomicos, la función de valor cambia bastante. Las preferencias de coche se mueven entre 0.60 y 0.85, del autobús oscilan entre 0.57 y 0.58, en el caso del metro entre 0.53 y 0.75 y de Cercanías entre 0.45 y 0.70.\\
+
+En el caso del objetivo Confort, también se producen muchas variaciones en torno a la función de valor: en el caso del coche los valores varían entre 0.77 y 0.60. En el metro varían de 0.76 a 0.45, en el Cercanías de 0.75 a 0.15 y en el autobús de 0.74 a 0.24.\\
+
+Por último, en el caso de los objetivos Sociales también se producen cambios pero algo menos acusados. En el caso del coche, los valores varían entre 0.75 y 0.70, en el metro de 0.55 a 0.95, en el autobús de 0.55 a 0.90 y el Cercanías de 0.47 a 0.90.\\
+
+En general, se observa mucha variación de las preferencias en estos tres objetivos, aunque la más acusada se ve en el objetivo de Confort. Puede ser debido a la subjetividad con la que hemos definido cómo se mide el confort (número de transbordos, tipo de transporte, tiempo de llegada, etc).\\
+
+Ahora introducimos estos nuevos valores para ver cómo cambia la solución del problema en GeNIe.\\
+
+Al resolver el modelo con estos nuevos valores, la solución no varía, salvo en el caso de condiciones de lluvia: si tenemos contaminacón baja, combustible alto y precio del transporte alto ahora deberemos elegir coche en vez del metro.
 
 \section{Conclusiones}
 
+Hemos resuelto el problema de la ruta óptima para llegar al trabajo siguiendo el ciclo del análisis de decisiones. Para tomar nuestra decisión debemos de tener en cuenta las condiciones meteorológicas y los precios del combustible y de los transportes públicos. Debido a nuestras preferencias, los medios de transporte que más utilizaremos para llegar al trabajo serán el coche y el metro, y en algún caso excepcional, el autobús.\\
 
+Esta solución puede variar mucho debido a la naturaleza del problema: es muy subjetivo qué es el confort y cómo medirlo (hemos usado parámetros como número de transbordos, número de personas del habitáculo, tipo de transporte y tiempo de espera). Otro decisor, con otras preferencias opuestas a las nuestras, podría obtener una solución totalmente distinta de la nuestra.\\
+
+El modelo se podría mejorar distinguiendo distintos niveles para las condiciones meterológicas. Por ejemplo, en el caso de la lluvia, podríamos tener chubascos dispersos, lluvia suave, lluvia intensa. De esta manera seríamos nuestro modelo sería más preciso.\\
+
+Por último, cabe destacar la utilización de dos software: GeNIe y Web-HIPRE. El primero de ellos, permite crear, modificar y resolver diagramas de influencia de una forma sencilla y rápida, ahorrando mucho tiempo. El segundo, permite evaluar nuestras preferencias creando un modelo jerárquico de objetivos. También tiene una interfaz muy sencilla que permite obtener las preferencias de forma muy gráfica.  
 
 \end{document} 
