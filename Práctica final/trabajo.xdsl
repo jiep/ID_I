@@ -60,15 +60,15 @@
 		</mau>
 		<utility id="Transbordos">
 			<parents>Medio_de_transporte</parents>
-			<utilities>1 0.8 0.75 0.8</utilities>
+			<utilities>0.7 0.24 0.1 0.45</utilities>
 		</utility>
 		<utility id="Tiempo_espera">
 			<parents>Medio_de_transporte</parents>
-			<utilities>1 0.6 0.7 0.6</utilities>
+			<utilities>0.86 0.64 0.57 0.58</utilities>
 		</utility>
 		<utility id="Personas_del_habit_culo">
 			<parents>Medio_de_transporte</parents>
-			<utilities>0.8 0.2 0.3 0.5</utilities>
+			<utilities>0.86 0.59 0.54 0.6</utilities>
 		</utility>
 		<mau id="Confort">
 			<parents>Personas_del_habit_culo Tiempo_espera Tipo_de_transporte Transbordos</parents>

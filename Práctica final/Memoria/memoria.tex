@@ -64,6 +64,10 @@
 \thispagestyle{empty}
 \newpage
 
+\listoftables
+\thispagestyle{empty}
+\newpage
+
 \tableofcontents
 \thispagestyle{empty}
 \newpage
@@ -74,7 +78,7 @@
 
 \section{Introducción}
 
-Habitualmente, nos desplazamos para llegar al trabajo, y tenemos, en general, varias formas de ellas hasta él. Los medios de transporte disponibles son el coche, metro, autobús y Cercanías Renfe. Nuestro objetivo es llegar lo más rápido posible, es decir, minimizar el tiempo de llegada hasta el trabajo. Supondremos que nuestro trabajo se encuentra en la ciudad de Madrid, y hasta él tenemos una distancia de 30 kilómetros (por carretera). Preferimos los medios terrestres (coche y autobús) sobre los medios subterráneos (metro y Cercanías). Además de llegar lo antes posible, también queremos tener la máxima comodidad, que sea lo más barato y que contamine lo menos posible. Si se elige los servicios de transporte (metro, autobús o Cercanías) se quiere minimizar el número de transbordos.\\
+Habitualmente, nos desplazamos para llegar al trabajo, y tenemos, en general, varias formas de ellas hasta él. Los medios de transporte que tendremos disponibles en el problema serán coche, metro, autobús y Cercanías Renfe. Nuestro objetivo es llegar lo más rápido posible, es decir, minimizar el tiempo de llegada hasta el trabajo. Supondremos que nuestro trabajo se encuentra en la ciudad de Madrid, y hasta él tenemos una distancia de 30 kilómetros, independientemente del medio de transporte elegido. Preferimos los medios terrestres (coche y autobús) sobre los medios subterráneos (metro y Cercanías). Además de llegar lo antes posible, también queremos tener la máxima comodidad, que sea lo más barato y que contamine lo menos posible. Si se elige los servicios de transporte (metro, autobús o Cercanías) se quiere minimizar el número de transbordos.\\
 
 \section{Resolución del problema}
 
@@ -133,7 +137,7 @@ Nos queda introducir los arcos entre los nodos. Para ello, consideramos las infl
 
 Comencemos con el nodo de Condiciones meteorológicas: hay un arco entre este nodo y nivel de contaminación ya que las condiciones meteorológicas condicionan el nivel de contaminación. También hay un arco hacia el nodo de valor Tiempo llegada ya que la meteorología influye en el tiempo que tardaremos en llegar al trabajo.\\
 
-En el nodo Predicción meteorológica, tenemos un arco hacia Condiciones meteorológicas, ya que la condiciones meteorológica vendrán determinadas por las condiciones meteorológicas.\\
+En el nodo Predicción meteorológica, tenemos un arco hacia Condiciones meteorológicas, ya que la condiciones meteorológica vendrán determinadas por la predicción meteorológica.\\
 
 El precio del combustible condiciona al Precio del servicio de transporte, y ambos precios afectan al objetivo del coste.\\
 
@@ -150,13 +154,13 @@ Para tomar la decisión, conocemos la predicción meteorológica, las condicione
 
 Ahora procedemos a asignar probabilidades a los nodos de azar.\\
 
-En primer lugar consideraremos los estados de los nodos Condiciones y Predicción meteorológica. Éstos serán cuatro posibles: Lluvia, nieve, niebla y despejado.\\
+En primer lugar consideraremos los estados de los nodos Condiciones y Predicción meteorológica. Éstos serán cuatro: lluvia, nieve, niebla y despejado.\\
 
-Se sabe que la predicción de lluvia se dio el 15\% de los casos, nieve en el 5\%, niebla en el 10\% y despejado el 70\%. En la Figura~\ref{tbl:prob_pred_met} se puede ver cómo queda en GeNIe.\\   
+Se sabe que la predicción de lluvia se dio el 15\% de los casos, nieve en el 5\%, niebla en el 10\% y despejado el 70\% (Tabla~\ref{tbl:prob_pred_met}).\\   
 
 \begin{table}[htbp!]
 \centering
-\caption{Estados y probabilidades del nodo Predicción meteorológican}
+\caption{Estados y probabilidades del nodo Predicción meteorológicas}
 \label{tbl:prob_pred_met}
 \begin{tabular}{@{}cc@{}}
 \toprule
@@ -186,9 +190,9 @@ También se conocen las probabilidades de que se produzcan las condiciones meteo
 
 En el nodo Precio combustible consideramos dos estados: precio alto y bajo. Diremos que el precio es alto si nos cuesta 1 litro de gasolina más de 1.20 euros. En caso contrario, tenemos un precio bajo.\\
 
-Se conoce que el 70\% de los días de los últimos cinco años, el precio del combustible ha estado alto. El 30\% ha estado bajo.\\
+Se conoce que el 70\% de los días de los últimos cinco años, el precio del combustible ha estado alto. El 30\% restante ha tenido un precio bajo.\\
 
-Con el precio del transporte tenemos, de nuevo, dos estados: precio alto y bajo. Consideraremos que el precio del transporte es alto si la media aritmética de los transportes públicos (metro, autobús y Cercanías) es mayor a 3 euros. En caso contrario, el precio es bajo.\\
+Con el precio del transporte tenemos, de nuevo, dos estados: precio alto y bajo. Consideraremos que el precio del transporte es alto si la media aritmética del coste los transportes públicos (metro, autobús y Cercanías) es mayor a 3 euros. En caso contrario, el precio es bajo.\\
 
 Se saben las probabilidades del precio del transporte público, dado el precio del combustible (Tabla~\ref{tbl:condicionadas_2}).
 
@@ -204,7 +208,7 @@ Se saben las probabilidades del precio del transporte público, dado el precio d
 	\end{tabular}
 \end{table}
 
-El último nodo que nos queda es el Nivel de contaminación. Tenemos dos estados contaminación alta y baja. Consideramos que el nivel es alto si se tiene una medida superior a 700 ppm (partes por millón).
+El último nodo que nos queda es el Nivel de contaminación. Tenemos dos estados contaminación alta y baja. Consideramos que el nivel es alto si se tiene una medida superior a 700 ppm (partes por millón).\\
 
 Por último, conocemos la probabilidad del nivel de contaminación dadas las condiciones meteorológicas (Tabla~\ref{tbl:condicionadas_3}).\\
 
@@ -226,7 +230,7 @@ Todos las probabilidades anteriores las introducimos en el modelo de GeNIe.
 
 Ahora modelizamos nuestras preferencias con el software Web-HIPRE.\\
 
-En primer lugar, definimos nuestro modelo jerárquico de objetivos. Nuestro objetivo principal será llegar al trabajo, que a su vez, tiene tres subobjetivos: el económico, el confort y los sociales. En el primero se encuentra el coste y el tiempo de llegada; en el segundo, los transbordos, el tiempo de espera, las personas del habitáculo y el tipo de transporte (que a su vez puede ser terrestre o subterráneo); y los últimos, formado por los ruidos y la contaminación. La Figura~\ref{fig:modelo_jerarquico_objetivos} muestra la jerarquía completa (junto con las alternativas) una vez introducida en Web-HIPRE.
+En primer lugar, definimos nuestro modelo jerárquico de objetivos. Nuestro objetivo principal será llegar al trabajo, que a su vez, tiene tres subobjetivos: el económico, el confort y los sociales. En el primero se encuentra el coste y el tiempo de llegada; en el segundo, los transbordos, el tiempo de espera, las personas del habitáculo y el tipo de transporte (que a su vez puede ser terrestre o subterráneo); y los últimos, formado por los ruidos y la contaminación. La Figura~\ref{fig:modelo_jerarquico_objetivos} muestra la jerarquía completa (junto con las alternativas) una vez introducidas en Web-HIPRE.
 
 \begin{figure}[tbph!]
 	\centering
@@ -235,7 +239,7 @@ En primer lugar, definimos nuestro modelo jerárquico de objetivos. Nuestro obje
 	\label{fig:modelo_jerarquico_objetivos}
 \end{figure}
 
-Para cada uno de nuestros objetivos terminales (las hojas del árbol), definimos una escala, y los valores máximos y mínimos que pueden tomar cada uno de ellos(Figura~\ref{fig:ratings}).\\
+Para cada uno de nuestros objetivos terminales (las hojas del árbol), definimos una escala, y los valores máximos y mínimos que pueden tomar cada uno de ellos (Figura~\ref{fig:ratings}).\\
 
 \begin{figure}[tbph!]
 	\centering
@@ -246,9 +250,13 @@ Para cada uno de nuestros objetivos terminales (las hojas del árbol), definimos
 
 En el tiempo de llegada, el coste, el número de transbordos, el tiempo de espera se han considerado los valores máximos y mínimos haciendo una estimación, teniendo una referencia para cada alternativa.\\
 
-En los casos de la contaminación y los ruidos, se han tenido que consultar distintas fuentes para establecer los límites inferior y superior, y dar un valor para cada alternativa. En el caso de la contaminación, los valores para cada alternativa se han calculado con la calculadora de CO2 de Terra \url{http://www.terra.org/calc/}. Notar que esta calculadora necesita la distancia recorrida (en kilómetros) y el número de veces que se realiza el trayecto. En nuestro caso son 30 kiómetros y una vez al día (sólo consideramos el trayecto de ida). Aplicando los parámetros para cada transporte y dividiendo entre 365 (calcula los kilogramos de CO2 emitidos en un año), se obtienen los valores de la Figura~\ref{fig:ratings}.\\
+En los casos de la contaminación y los ruidos, se han tenido que consultar distintas fuentes para establecer los límites inferior y superior, y dar un valor para cada alternativa.\\
 
-En el caso del ruido, marcamos el límite máximo como 100, por debajo del umbral del dolor situado en 120 dB, según la OMS. Para establacer medidas para cada una de las alternativas, consultamos distintas páginas web y blogs, que nos llevan a los datos de la Figura~\ref{fig:ratings}.\\
+Sólo notar que para el coste, hemos supuesto que nuestro coche consume 5 litros por cada 100 kilómetros, y que el precio del combustible es de 1 euro por litro, dando un resultado de 1.5 euros por trayecto.\\ 
+
+En el caso de la contaminación, los valores para cada alternativa se han calculado con la calculadora de CO2 de Terra \url{http://www.terra.org/calc/}. Notar que esta calculadora necesita la distancia recorrida (en kilómetros) y el número de veces que se realiza el trayecto. En nuestro caso son 30 kilómetros y una vez al día (sólo consideramos el trayecto de ida). Aplicando los parámetros para cada transporte y dividiendo entre 365 (calcula los kilogramos de CO2 emitidos en un año), se obtienen los valores de la Figura~\ref{fig:ratings}.\\
+
+En el caso del ruido, marcamos el límite máximo como 100, por debajo del umbral del dolor situado en 120 dB, según la OMS. Para establecer medidas para cada una de las alternativas, consultamos distintas páginas web y blogs, que nos llevan a los datos de la Figura~\ref{fig:ratings}.\\
 
 Ya estamos en disposición de introducir las funciones de valor para cada uno de los objetivos.\\
 
@@ -261,7 +269,7 @@ Comenzamos con el coste. Usando el método Valuefn, creamos una función de valo
 	\label{fig:prioridades_coste}
 \end{figure}
 
-En el caso del tiempo de llegada, el número de transbordos, el tiempo de espera, personas del habitáculo, la contaminación y el ruido calculamos la función de valor empleando el mismo método, Valuefn. Las funciones de valor de cada uno de estos objetivos se pueden ver en la Figura~\ref{fig:prioridades}.
+En el caso del tiempo de llegada, el número de transbordos, el tiempo de espera, personas del habitáculo, la contaminación y el ruido calculamos la función de valor empleando el mismo método, Valuefn. Las funciones de valor de cada uno de estos objetivos se pueden ver en la Figura~\ref{fig:prioridades}.\\
 
 \begin{figure}[htbp!]
 \centering
@@ -274,7 +282,7 @@ En el caso del tiempo de llegada, el número de transbordos, el tiempo de espera
 \caption{Funciones de valor para tiempo de llegada, el número de transbordos, el tiempo de espera, personas del habitáculo, la contaminación y el ruido} \label{fig:prioridades}
 \end{figure}
 
-Para el caso de los tipos de transporte, terrestre y subterráneo, empleamos el método Direct para asignar la función de valor. Notar que todas las alternativas no son medios de transporte subterráneo y terrestre simultáneamente, sino que sólo pueden ser de un solo tipo. Por ello, sólo unimos el tipo de transporte con sus alternativas correctas (coche y autobús para terrestre, y Cercanías y metro para subterráneo). De esta forma, asignamos pesos a los medios de transporte correctos. La Figura~\ref{fig:prioridades_t_transporte} muestra los pesos para terrestre y subterráneo.
+Para el caso de los tipos de transporte, terrestre y subterráneo, empleamos el método Direct para asignar la función de valor. Notar que todas las alternativas no son medios de transporte subterráneo y terrestre simultáneamente, sino que sólo pueden ser de un solo tipo. Por ello, sólo unimos el tipo de transporte con sus alternativas correctas (coche y autobús para terrestre, y Cercanías y metro para subterráneo). De esta forma, asignamos pesos a los medios de transporte correctos. La Figura~\ref{fig:prioridades_t_transporte} muestra los pesos para terrestre y subterráneo.\\
 
 \begin{figure}[htbp!]
 \centering
@@ -291,7 +299,7 @@ Para la asignación de prioridades en el caso del tipo de transporte, usamos el 
 \caption{Pesos para tipo de transporte} \label{fig:prioridades_tipo_transporte}
 \end{figure}
 
-De nuevo, usamos el método SWING para ajustar los pesos del objetivo Económicos y Confort. En el caso de Ecónimcos asignamos 100 puntos a la opción Tiempo llegada y 40 puntos al coste. Para Confort, asignamos 100 puntos a Tipo transporte, 80 al timepo de espera, 70 al número de transbordos y 40 al número de personas del habitáculo. Ver Figura~\ref{fig:swing_2}.
+De nuevo, usamos el método SWING para ajustar los pesos del objetivo Económicos y Confort. En el caso de Económicos asignamos 100 puntos a la opción Tiempo llegada y 40 puntos al coste. Para Confort, asignamos 100 puntos a Tipo transporte, 80 al tiempo de espera, 70 al número de transbordos y 40 al número de personas del habitáculo. Ver Figura~\ref{fig:swing_2}.
 
 \begin{figure}[htbp!]
 \centering
@@ -316,7 +324,7 @@ Por último, sólo nos queda asignar pesos al objetivo de elegir medio de transp
 \caption{Asignación de pesos para Medio de transporte} \label{fig:prioridades_medio_transporte}
 \end{figure}
 
-Ya tenemos asignadas las prioridades a todos los objetivos. Ahora debemos analizar nuestras preferencias. La Figura~\ref{fig:analisis_1} muestra los resultados según los objetivos primarios. Observamos que nuestra opción preferida es el coche, seguido del metro y el autobús. En última opción se encuntra Cercanías. De acuerdo a lo establecido anteriormente, los objetivos económicos pesan mucho para la elección de la alternativa.\\
+Ya tenemos asignadas las prioridades a todos los objetivos. Ahora debemos analizar nuestras preferencias. La Figura~\ref{fig:analisis_1} muestra los resultados según los objetivos primarios. Observamos que nuestra opción preferida es el coche, seguido del metro y el autobús. En última opción se encuentra Cercanías. De acuerdo a lo establecido anteriormente, los objetivos económicos pesan mucho para la elección de la alternativa.\\
 
 \begin{figure}[htbp!]
 \centering
@@ -365,7 +373,7 @@ Resolvemos el modelo con GeNIe, obteniendo los resultados que se muestran en la 
 
 \subsection{Análisis del modelo}
 
-Puesto que la solución tiene muchas incertidumbres representamos, en forma de árbol, para cada condición meteorólogica el medio de transporte que da la solución. Ver~\Cref{fig:sol_lluvia,fig:sol_nieve,fig:sol_niebla,fig:sol_despejado}. En cada una de las figuras se indica en azul las condiciones meteorológicas, en amarillo el nivel de contaminación, en verde el precio del combustible y, en rojo el precio del transporte.\\
+Puesto que la solución tiene muchas incertidumbres, representamos, en forma de árbol, para cada condición meteorológica el medio de transporte que da la solución. Ver~\Cref{fig:sol_lluvia,fig:sol_nieve,fig:sol_niebla,fig:sol_despejado}. En cada una de las figuras se indica en azul las condiciones meteorológicas, en amarillo el nivel de contaminación, en verde el precio del combustible y, en rojo el precio del transporte.\\
 
 \begin{figure}[htbp!]
 \centering
@@ -420,7 +428,7 @@ scale=1.25
 \label{fig:sol_lluvia}
 \end{figure}
 
-En el caso de condiciones de lluvia, debemos utilizar distintos medios de transporte según el nivel de contaminación, el precio del combustible y de los transportes públicos. Así, en caso de contaminación baja, precio del combustible alto y precio del transporte público alto debemos escoger el autobús. Si tenemos el precio del transporte público, entonces el metro. Si hay contaminación baja, precio del combustible alto y el precio del transporte público es alto, entonces cogeremos el coche. Si el precio del transporte es bajo, debemos elegir el metro. Si la contaminación es alta, el precio del combustible alto, el precio del transporte alto, entonces el autobús cogeremos. Si el precio del transporte es bajo cogeremos el metro. Si el precio del combustible es bajo, entonces escogeremos el metro, independientemente del precio del transporte público.\\
+En el caso de condiciones de lluvia (Figura~\ref{fig:sol_lluvia}), debemos utilizar distintos medios de transporte según el nivel de contaminación, el precio del combustible y de los transportes públicos. Así, en caso de contaminación baja, precio del combustible alto y precio del transporte público alto debemos escoger el autobús. Si tenemos el precio del transporte público bajo, entonces el metro. Si hay contaminación baja, precio del combustible alto y el precio del transporte público es alto, entonces cogeremos el coche. Si el precio del transporte es bajo, debemos elegir el metro. Si la contaminación es alta, el precio del combustible alto, el precio del transporte alto, entonces el autobús cogeremos. Si el precio del transporte es bajo cogeremos el metro. Si el precio del combustible es bajo, entonces escogeremos el metro, independientemente del precio del transporte público.\\
 
 \begin{figure}[htbp!]
 \centering
@@ -475,7 +483,7 @@ scale=1.25
 \label{fig:sol_nieve}
 \end{figure}
 
-En el caso de condiciones de nieve, elegiremos siempre el metro, salvo cuando se de que el nivel de contaminación sea baja, el precio del combustible sea bajo y el precio del transporte público sea alto, que elegiremos el coche.\\
+En el caso de condiciones de nieve (Figura~\ref{fig:sol_nieve}), elegiremos siempre el metro, salvo cuando se dé que el nivel de contaminación sea baja, el precio del combustible sea bajo y el precio del transporte público sea alto, que elegiremos el coche.\\
 
 \begin{figure}[htbp!]
 \centering
@@ -530,7 +538,7 @@ scale=1.25
 \label{fig:sol_niebla}
 \end{figure}
 
-En caso de niebla, si tenemos contaminación baja, escogeremos el coche, salvo cuando el precio del combustible sea alto y el precio del transporte público bajo. En caso de que haya contaminación alta, elegiremos siempre el metro, salvo cuando el precio del combustible sea alto y el precio del transporte público sea alto que escogeremos el autobús.\\
+En caso de niebla (Figura~\ref{fig:sol_niebla}), si tenemos contaminación baja, escogeremos el coche, salvo cuando el precio del combustible sea alto y el precio del transporte público bajo. En caso de que haya contaminación alta, elegiremos siempre el metro, salvo cuando el precio del combustible sea alto y el precio del transporte público sea alto que escogeremos el autobús.\\
 
 \begin{figure}[htbp!]
 \centering
@@ -585,11 +593,11 @@ scale=1.25
 \label{fig:sol_despejado}
 \end{figure}
 
-En caso de que el cielo esté despajado, escogeremos el coche si hay contaminación baja y el metro si la contaminación es alta.\\
+En caso de que el cielo esté despejado (Figura~\ref{fig:sol_despejado}), escogeremos el coche si hay contaminación baja y el metro si la contaminación es alta.\\
 
 \subsection{Análisis de sensibilidad}
 
-A continuación, realizamos un análisis de sensibilidad con Web-HIPRE. A tenor de nuestras elección de preferencias, los modos de asignación más imprecisos son Direct y SWING. Debemos estudiar como varían nuestras preferencias en los nodos cuyos método de asignación de preferencias sea alguno de los dos anteriores. Por brevedad, solo comentaremos cómo cambia la solución del nodo Medio Tranporte si cambian las preferencias de los objetivos Económicos, Confort y Sociales (Figura~\ref{fig:sensibilidad}).\\
+A continuación, realizamos un análisis de sensibilidad con Web-HIPRE. A tenor de nuestras elección de preferencias, los modos de asignación más imprecisos son Direct y SWING. Debemos estudiar como varían nuestras preferencias en los nodos cuyos método de asignación de preferencias sea alguno de los dos anteriores. Por brevedad, solo comentaremos cómo cambia la solución del nodo Medio Transporte si cambian las preferencias de los objetivos Económicos, Confort y Sociales (Figura~\ref{fig:sensibilidad}).\\
 
 
 \begin{figure}[htbp!]
@@ -600,7 +608,7 @@ A continuación, realizamos un análisis de sensibilidad con Web-HIPRE. A tenor 
 \caption{Análisis de sensibilidad} \label{fig:sensibilidad}
 \end{figure}
 
-En el caso del objetivo Ecónomicos, la función de valor cambia bastante. Las preferencias de coche se mueven entre 0.60 y 0.85, del autobús oscilan entre 0.57 y 0.58, en el caso del metro entre 0.53 y 0.75 y de Cercanías entre 0.45 y 0.70.\\
+En el caso del objetivo Económicos, la función de valor cambia bastante. Las preferencias de coche se mueven entre 0.60 y 0.85, del autobús oscilan entre 0.57 y 0.58, en el caso del metro entre 0.53 y 0.75 y de Cercanías entre 0.45 y 0.70.\\
 
 En el caso del objetivo Confort, también se producen muchas variaciones en torno a la función de valor: en el caso del coche los valores varían entre 0.77 y 0.60. En el metro varían de 0.76 a 0.45, en el Cercanías de 0.75 a 0.15 y en el autobús de 0.74 a 0.24.\\
 
@@ -610,16 +618,16 @@ En general, se observa mucha variación de las preferencias en estos tres objeti
 
 Ahora introducimos estos nuevos valores para ver cómo cambia la solución del problema en GeNIe.\\
 
-Al resolver el modelo con estos nuevos valores, la solución no varía, salvo en el caso de condiciones de lluvia: si tenemos contaminacón baja, combustible alto y precio del transporte alto ahora deberemos elegir coche en vez del metro.
+Al resolver el modelo con estos nuevos valores, la solución no varía, salvo en el caso de condiciones de lluvia: si tenemos contaminación baja, combustible alto y precio del transporte alto ahora deberemos elegir coche en vez del autobús.
 
 \section{Conclusiones}
 
 Hemos resuelto el problema de la ruta óptima para llegar al trabajo siguiendo el ciclo del análisis de decisiones. Para tomar nuestra decisión debemos de tener en cuenta las condiciones meteorológicas y los precios del combustible y de los transportes públicos. Debido a nuestras preferencias, los medios de transporte que más utilizaremos para llegar al trabajo serán el coche y el metro, y en algún caso excepcional, el autobús.\\
 
-Esta solución puede variar mucho debido a la naturaleza del problema: es muy subjetivo qué es el confort y cómo medirlo (hemos usado parámetros como número de transbordos, número de personas del habitáculo, tipo de transporte y tiempo de espera). Otro decisor, con otras preferencias opuestas a las nuestras, podría obtener una solución totalmente distinta de la nuestra.\\
+Esta solución puede variar mucho debido a la naturaleza del problema: es muy subjetivo definir qué es el confort y cómo medirlo (hemos usado parámetros como número de transbordos, número de personas del habitáculo, tipo de transporte y tiempo de espera). Otro decisor, con otras preferencias opuestas a las nuestras, podría obtener una solución totalmente distinta de la nuestra.\\
 
-El modelo se podría mejorar distinguiendo distintos niveles para las condiciones meterológicas. Por ejemplo, en el caso de la lluvia, podríamos tener chubascos dispersos, lluvia suave, lluvia intensa. De esta manera seríamos nuestro modelo sería más preciso.\\
+El modelo se podría mejorar distinguiendo distintos niveles para las condiciones meteorológicas. Por ejemplo, en el caso de la lluvia, podríamos tener chubascos dispersos, lluvia suave e intensa, etc. De esta manera seríamos nuestro modelo más robusto y preciso.\\
 
-Por último, cabe destacar la utilización de dos software: GeNIe y Web-HIPRE. El primero de ellos, permite crear, modificar y resolver diagramas de influencia de una forma sencilla y rápida, ahorrando mucho tiempo. El segundo, permite evaluar nuestras preferencias creando un modelo jerárquico de objetivos. También tiene una interfaz muy sencilla que permite obtener las preferencias de forma muy gráfica.  
+Por último, cabe destacar la utilización de dos software: GeNIe y Web-HIPRE. El primero de ellos, permite crear, modificar y resolver diagramas de influencia de una forma sencilla y rápida, ahorrando mucho tiempo durante el modelado. El segundo, permite evaluar nuestras preferencias creando un modelo jerárquico de objetivos. También tiene una interfaz muy sencilla que permite obtener las preferencias de forma muy gráfica, obteniendo una fácil interpretación.  
 
 \end{document} 
