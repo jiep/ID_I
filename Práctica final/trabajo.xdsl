@@ -76,7 +76,7 @@
 		</mau>
 		<utility id="Tiempo_llegada">
 			<parents>Condiciones_meteorol_gicas Medio_de_transporte</parents>
-			<utilities>0.1 1 0.25 0.5 0 1 0.9 0.1 0.1 0.8 0.75 0.3 1 0.7 0.6 0</utilities>
+			<utilities>0.3 1 0.25 0.5 0 1 0.9 0.1 0.1 0.8 0.75 0.3 1 0.7 0.6 0</utilities>
 		</utility>
 		<utility id="Coste">
 			<parents>Precio_servicio_de_transporte Precio_combustible Medio_de_transporte</parents>
